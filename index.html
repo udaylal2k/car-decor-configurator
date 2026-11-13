@@ -9,170 +9,202 @@
 <title>Car Decor | Build your car</title>
 <style>
 :root{
-  --red:#d80015;
-  --red-deep:#a80011;
-  --ink:#0b0b0c;
-  --ink-soft:#3a3a3d;
-  --muted:#6e6e73;
-  --paper:#ffffff;
-  --mist:#f4f4f2;
-  --line:#e4e4e1;
-  --pad:clamp(20px,4.5vw,64px);
+  --red:#e10600;
+  --red-hot:#ff2a1f;
+  --red-deep:#8f0300;
+  --ink:#050506;
+  --text:#f5f5f6;
+  --soft:#b9babe;
+  --mute:#6d6e74;
+  --glass:rgba(255,255,255,.055);
+  --glass-hi:rgba(255,255,255,.10);
+  --edge:rgba(255,255,255,.12);
+  --pad:clamp(16px,3.6vw,48px);
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;min-height:100vh;background:var(--ink);color:var(--text);font:15px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
-a{color:inherit}
-button{font:inherit;color:inherit;cursor:pointer}
-:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
+:focus-visible{outline:2px solid var(--red-hot);outline-offset:3px;border-radius:12px}
 [hidden]{display:none!important}
 
-/* header */
-.bar{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1px solid var(--line)}
-.bar-in{display:flex;align-items:center;gap:28px;padding:14px var(--pad);max-width:1440px;margin:0 auto}
-.logo img{height:44px;width:auto}
-.steps{display:flex;gap:6px;margin-left:auto}
-.steps span{font-size:14px;color:var(--muted);padding:8px 12px;border-radius:999px}
-.steps span.on{background:var(--red);color:#fff;font-weight:600}
-.call{font-size:14px;font-weight:600;text-decoration:none;color:var(--ink);border:1px solid var(--ink);padding:9px 16px;border-radius:999px;transition:background .2s,color .2s}
-.call:hover{background:var(--ink);color:#fff}
+/* animated backdrop */
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 80% at 50% 0%,#141416 0%,var(--ink) 60%)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:drift 18s var(--ease) infinite alternate}
+.o1{width:46vw;height:46vw;left:-10vw;top:-12vw;background:var(--red)}
+.o2{width:38vw;height:38vw;right:-8vw;bottom:-14vw;background:var(--red-deep);animation-duration:22s;animation-delay:-6s}
+.o3{width:24vw;height:24vw;left:40vw;top:46vh;background:#4a0000;opacity:.5;animation-duration:26s;animation-delay:-12s}
+@keyframes drift{0%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(4vw,3vh,0) scale(1.08)}100%{transform:translate3d(-3vw,5vh,0) scale(.96)}}
 
-/* hero */
-.hero{background:var(--paper);padding:clamp(40px,7vw,96px) var(--pad);max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:clamp(28px,4vw,64px);align-items:center}
-.hero-copy .kicker{display:inline-block;color:var(--red);font-weight:700;font-size:14px;letter-spacing:.02em;margin:0 0 18px}
-.hero h1{font-size:clamp(44px,6.4vw,92px);line-height:.98;letter-spacing:-.035em;margin:0 0 22px;font-weight:800}
-.hero h1 em{font-style:normal;color:var(--red)}
-.lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-soft);max-width:520px;margin:0 0 34px}
-.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;border:0;padding:17px 28px;border-radius:999px;font-weight:700;font-size:16px;text-decoration:none;transition:transform .2s,background .2s}
-.btn:hover{background:var(--red-deep);transform:translateY(-2px)}
-.btn:active{transform:translateY(0) scale(.98)}
-.btn:disabled{background:var(--line);color:var(--muted);cursor:not-allowed;transform:none}
-.hero-photo{position:relative;border-radius:18px;overflow:hidden;background:var(--mist);aspect-ratio:930/560}
-.hero-photo img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
-.hero-photo:hover img{transform:scale(1.02)}
-.hero-tag{position:absolute;left:18px;bottom:18px;background:#fff;border-radius:999px;padding:9px 16px;font-size:14px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.12)}
-.hero-tag b{color:var(--red)}
+/* glass */
+.glass{background:var(--glass);backdrop-filter:blur(26px) saturate(150%);-webkit-backdrop-filter:blur(26px) saturate(150%);border:1px solid var(--edge);box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 30px 80px -20px rgba(0,0,0,.7)}
 
-/* brand band */
-.band{background:var(--mist);padding:28px var(--pad)}
-.band-in{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:32px;flex-wrap:wrap;justify-content:space-between}
-.band p{margin:0;font-weight:600;color:var(--ink-soft)}
-.band ul{list-style:none;padding:0;margin:0;display:flex;gap:28px;align-items:center;flex-wrap:wrap}
-.band img{height:30px;width:auto;opacity:.75;filter:grayscale(1);transition:opacity .2s,filter .2s}
-.band li:hover img{opacity:1;filter:none}
+/* top bar */
+.top{position:sticky;top:14px;z-index:30;margin:14px auto 0;max-width:1320px;width:calc(100% - 2*var(--pad));display:flex;align-items:center;gap:20px;padding:10px 12px 10px 14px;border-radius:999px;animation:rise .9s var(--ease) both}
+.logo{display:inline-flex;background:#fff;border-radius:12px;padding:6px 10px}
+.logo img{height:34px;width:auto}
+.steps{margin-left:auto;display:flex;gap:4px;background:rgba(0,0,0,.35);border-radius:999px;padding:4px}
+.steps button{font-size:13px;color:var(--soft);padding:8px 14px;border-radius:999px;transition:background .3s var(--ease),color .3s}
+.steps button:not(:disabled):hover{color:#fff;background:rgba(255,255,255,.08)}
+.steps button.on{background:var(--red);color:#fff;font-weight:700;box-shadow:0 8px 22px -6px var(--red)}
+.steps button:disabled{opacity:.35;cursor:not-allowed}
+.call{font-size:13px;font-weight:700;padding:10px 16px;border-radius:999px;background:#fff;color:var(--ink);transition:transform .25s var(--ease),background .25s}
+.call:hover{transform:translateY(-2px);background:var(--red-hot);color:#fff}
 
-/* configurator */
-.configurator{max-width:1440px;margin:0 auto;padding:clamp(40px,6vw,88px) var(--pad);display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:start}
-.configurator .eyebrow{color:var(--red);font-weight:700;font-size:14px;margin:0 0 10px}
-.panel h2{font-size:clamp(30px,3.6vw,46px);letter-spacing:-.025em;line-height:1.05;margin:0 0 26px;font-weight:800}
-.back{background:none;border:0;color:var(--muted);padding:0;margin-bottom:14px;font-weight:600}
-.back:hover{color:var(--red)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
-.grid.alloys{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
-.tile{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;display:flex;flex-direction:column;gap:14px;transition:transform .2s,border-color .2s,box-shadow .2s}
-.tile:hover{transform:translateY(-3px);border-color:var(--red);box-shadow:0 14px 30px rgba(0,0,0,.08)}
-.tile.on{border-color:var(--red);box-shadow:0 0 0 2px var(--red) inset}
-.tile:active{transform:scale(.98)}
-.tlogo{background:var(--mist);border-radius:12px;height:96px;display:grid;place-items:center;padding:12px}
-.tlogo img{max-height:56px;max-width:82%;object-fit:contain}
-.tname{font-weight:800;font-size:18px;color:var(--ink)}
-.tphoto{background:var(--mist);border-radius:12px;aspect-ratio:16/10;object-fit:cover;width:100%;transition:transform .5s ease}
-.tile:hover .tphoto{transform:scale(1.03)}
-.tlabel{font-weight:700}
-.alloy-thumb{background:#fff;border-radius:12px;aspect-ratio:1/1;object-fit:contain;width:100%;padding:6px}
-.swatches{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
-.swatch{width:100%;display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px 16px;text-align:left;font-weight:600;transition:transform .2s,border-color .2s}
-.swatch:hover{transform:translateY(-2px);border-color:var(--red)}
-.swatch.on{border-color:var(--red);box-shadow:0 0 0 2px var(--red) inset}
-.dot{width:26px;height:26px;border-radius:50%;background:var(--mist);border:1px solid #cfcfcb;flex:none}
-.next{margin-top:28px}
+/* main glass panel (after the reference) */
+.shell{max-width:1320px;margin:clamp(20px,3vw,40px) auto 0;padding:0 var(--pad)}
+.app{border-radius:32px;padding:clamp(18px,2.6vw,36px);animation:rise 1s var(--ease) .1s both}
+.app-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:clamp(18px,2.4vw,30px)}
+.crumb{margin:0 0 8px;color:var(--red-hot);font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+.app h1{margin:0;font-size:clamp(30px,4vw,52px);line-height:1;letter-spacing:-.03em;font-weight:800}
+.pill{display:inline-flex;align-items:center;gap:8px;font-size:13px;color:var(--soft);padding:10px 16px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--edge)}
+.pill b{color:#fff}
 
-/* preview */
-.preview{position:sticky;top:104px;background:var(--mist);border-radius:22px;padding:clamp(18px,2.2vw,28px)}
-.carframe{background:#fff;border-radius:14px;overflow:hidden;aspect-ratio:16/10;display:grid;place-items:center}
-.carframe img{width:100%;height:100%;object-fit:cover}
-.carframe p{color:var(--muted);margin:0}
-.shot{position:relative;background:#fff;border-radius:14px;overflow:hidden}
-.shot>img{width:100%;height:100%;display:block;object-fit:cover}
-.shot .wh{position:absolute;transform:translate(-50%,-50%);height:auto;aspect-ratio:1/1;object-fit:contain;filter:drop-shadow(0 3px 6px rgba(0,0,0,.28));transition:transform .4s ease}
-.wheel{margin-top:16px;background:#fff;border-radius:14px;padding:14px}
-.wheel img{width:100%;max-width:240px;margin:0 auto}
-.spec{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;margin:20px 0 0}
-.spec dt{font-size:13px;color:var(--muted);font-weight:600}
-.spec dd{margin:2px 0 0;font-weight:800;font-size:17px}
-.primary.wide{display:block;text-align:center;margin-top:20px}
+.body{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.5fr);gap:clamp(18px,2.4vw,32px);align-items:stretch}
 
-/* visit */
-.visit{background:var(--ink);color:#fff;padding:clamp(48px,7vw,96px) var(--pad)}
-.visit-in{max-width:1440px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,64px);align-items:end}
-.visit h2{font-size:clamp(36px,5vw,68px);line-height:1;letter-spacing:-.03em;margin:0 0 18px;font-weight:800}
-.visit p{margin:0 0 6px;color:#c9c9cc;font-size:17px}
-.visit a{color:#fff;text-decoration:underline;text-underline-offset:4px}
-.visit .btn{margin-top:14px}
-.visit-logo{background:#fff;border-radius:18px;padding:28px;display:flex;align-items:center;justify-content:center}
-.visit-logo img{width:100%;max-width:360px;height:auto}
+/* options column */
+.options{display:flex;flex-direction:column;gap:14px;min-width:0}
+.opt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+.opt-grid.wide{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}
+.card{position:relative;display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--edge);text-align:left;color:var(--text);transition:transform .35s var(--ease),border-color .35s,background .35s,box-shadow .35s;animation:rise .6s var(--ease) both;animation-delay:calc(var(--i,0) * 55ms)}
+.card:hover{transform:translateY(-4px);border-color:rgba(225,6,0,.7);background:rgba(255,255,255,.09);box-shadow:0 18px 40px -14px rgba(225,6,0,.45)}
+.card:active{transform:scale(.98)}
+.card.on{border-color:var(--red-hot);background:rgba(225,6,0,.16);box-shadow:0 0 0 1px var(--red-hot) inset,0 16px 36px -14px rgba(225,6,0,.6)}
+.card .thumb{border-radius:14px;background:rgba(255,255,255,.92);aspect-ratio:16/10;overflow:hidden;display:grid;place-items:center}
+.card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.card:hover .thumb img{transform:scale(1.06)}
+.card .alloy-img{width:100%;height:100%;object-fit:contain;padding:8px;transition:transform .9s var(--ease)}
+.card:hover .alloy-img{transform:rotate(18deg) scale(1.04)}
+.card .logo-tile{background:#fff;border-radius:14px;aspect-ratio:16/10;display:grid;place-items:center;padding:14px}
+.card .logo-tile img{max-height:52px;max-width:80%;object-fit:contain}
+.card .name{font-weight:700;font-size:14px;padding:0 4px 4px}
+.card .name small{display:block;color:var(--mute);font-weight:500;font-size:12px}
+.swatch-list{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.swatch-list .card{flex-direction:row;align-items:center;padding:14px 16px;border-radius:16px}
+.dot{width:30px;height:30px;border-radius:50%;flex:none;background:radial-gradient(circle at 35% 30%,#fff 0,#bbb 18%,#444 70%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.swatch-list .card .label{font-weight:600}
+.next{margin-top:6px;align-self:flex-start}
+.btn{display:inline-flex;align-items:center;gap:10px;background:var(--red);color:#fff;padding:15px 24px;border-radius:999px;font-weight:800;font-size:15px;box-shadow:0 14px 30px -10px rgba(225,6,0,.8);transition:transform .3s var(--ease),background .3s,box-shadow .3s}
+.btn:hover{transform:translateY(-2px);background:var(--red-hot);box-shadow:0 20px 40px -12px rgba(255,42,31,.9)}
+.btn:active{transform:scale(.97)}
+.btn[aria-disabled="true"],.btn:disabled{background:rgba(255,255,255,.08);color:var(--mute);box-shadow:none;cursor:not-allowed;transform:none}
 
-@media(max-width:900px){
-  .hero,.configurator,.visit-in{grid-template-columns:1fr}
-  .preview{position:static}
+/* stage */
+.stage{display:flex;flex-direction:column;gap:16px;min-width:0}
+.car-wrap{position:relative;flex:1;min-height:320px;border-radius:26px;background:radial-gradient(90% 70% at 50% 45%,rgba(255,255,255,.1),rgba(255,255,255,.02) 70%);border:1px solid var(--edge);overflow:hidden;display:grid;place-items:center;padding:clamp(12px,2vw,24px)}
+.car-wrap::after{content:"";position:absolute;left:12%;right:12%;bottom:12%;height:18px;border-radius:50%;background:rgba(0,0,0,.6);filter:blur(12px);z-index:0}
+.shot{position:relative;width:100%;border-radius:18px;overflow:hidden;z-index:1;animation:fadeUp .8s var(--ease) both}
+.shot>img:first-child,.solo{width:100%;height:100%;display:block;object-fit:cover;border-radius:18px;animation:fadeUp .8s var(--ease) both}
+.solo{object-fit:contain;max-height:100%}
+.wh{position:absolute;translate:-50% -50%;aspect-ratio:1/1;object-fit:contain;filter:drop-shadow(0 6px 10px rgba(0,0,0,.45));animation:wheelIn 1.1s var(--ease) both;animation-delay:calc(var(--i,0) * 120ms)}
+.wh:hover{animation:spin 1.2s linear infinite}
+.placeholder{position:relative;z-index:1;text-align:center;color:var(--soft);padding:40px}
+.placeholder b{display:block;font-size:clamp(24px,3vw,36px);color:#fff;margin-bottom:8px;letter-spacing:-.02em}
+.tag{position:absolute;z-index:2;top:16px;left:16px;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700;background:rgba(0,0,0,.5);border:1px solid var(--edge);backdrop-filter:blur(10px)}
+.tag b{color:var(--red-hot)}
+
+.specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.spec{padding:12px 14px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--edge);animation:rise .7s var(--ease) both}
+.spec span{display:block;font-size:11px;color:var(--mute);font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.spec b{display:block;font-size:14px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.thumbs{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 6px;scrollbar-width:none}
+.thumbs::-webkit-scrollbar{display:none}
+.thumb-btn{flex:none;width:128px;border-radius:14px;overflow:hidden;background:rgba(255,255,255,.9);border:2px solid transparent;transition:transform .3s var(--ease),border-color .3s}
+.thumb-btn img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .6s var(--ease)}
+.thumb-btn:hover{transform:translateY(-3px)}
+.thumb-btn:hover img{transform:scale(1.07)}
+.thumb-btn.on{border-color:var(--red-hot)}
+.thumb-btn span{display:block;background:rgba(0,0,0,.85);color:#fff;font-size:12px;font-weight:700;padding:6px 8px}
+
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.bottom p{margin:0;color:var(--soft);font-size:13px}
+.bottom p b{color:#fff}
+
+/* intro strip */
+.intro{max-width:1320px;margin:clamp(24px,4vw,44px) auto 0;padding:0 var(--pad);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--soft);font-size:14px}
+.intro b{color:#fff}
+
+/* footer */
+.foot{max-width:1320px;margin:clamp(28px,4vw,48px) auto clamp(28px,4vw,48px);width:calc(100% - 2*var(--pad));border-radius:28px;padding:clamp(22px,3vw,36px);display:grid;grid-template-columns:1.2fr 1fr auto;gap:22px;align-items:center;animation:rise .9s var(--ease) .3s both}
+.foot h2{margin:0 0 6px;font-size:clamp(22px,2.6vw,32px);letter-spacing:-.02em}
+.foot p{margin:2px 0;color:var(--soft)}
+.foot a{color:#fff}
+.foot .btn{justify-self:end}
+
+/* motion */
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes wheelIn{from{opacity:0;transform:rotate(-120deg) scale(.7)}to{opacity:1;transform:rotate(0) scale(1)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:980px){
+  .body{grid-template-columns:1fr}
+  .specs{grid-template-columns:repeat(2,minmax(0,1fr))}
   .steps{display:none}
+  .foot{grid-template-columns:1fr}
+  .foot .btn{justify-self:start}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .orb{animation:none}
 }
 </style>
 </head>
 <body>
-<header class="bar">
-  <div class="bar-in">
-    <a class="logo" href="#top" aria-label="Car Decor home"><img src="assets/logo.png" alt="Car Decor" onerror="this.onerror=null;this.src='https://cardecorindia.in/wp-content/uploads/2025/05/cardecor_logo_20_1_-removebg-preview-1.png'"></a>
-    <nav class="steps" aria-label="Steps"><span data-s="brand">1 Brand</span><span data-s="model">2 Model</span><span data-s="colour">3 Colour</span><span data-s="alloy">4 Alloys</span></nav>
-    <a class="call" href="tel:+919845859785">Call +91 98458 59785</a>
-  </div>
+<div class="bg" aria-hidden="true"><span class="orb o1"></span><span class="orb o2"></span><span class="orb o3"></span></div>
+
+<header class="top glass">
+  <a class="logo" href="#app" aria-label="Car Decor"><img src="assets/logo.png" alt="Car Decor" onerror="this.onerror=null;this.src='https://cardecorindia.in/wp-content/uploads/2025/05/cardecor_logo_20_1_-removebg-preview-1.png'"></a>
+  <nav class="steps" aria-label="Steps">
+    <button data-go="brand">1 Brand</button>
+    <button data-go="model">2 Model</button>
+    <button data-go="colour">3 Colour</button>
+    <button data-go="alloy">4 Alloys</button>
+  </nav>
+  <a class="call" href="tel:+919845859785">+91 98458 59785</a>
 </header>
 
-<main id="top">
-  <section class="hero">
-    <div class="hero-copy">
-      <p class="kicker">Car Decor · Jayanagar, Bengaluru · Since 1992</p>
-      <h1>Build your car, <em>your way.</em></h1>
-      <p class="lede">Pick your brand, your model, your colour, then try alloy wheels on your car before you visit the studio.</p>
-      <a class="btn" href="#configure" id="start">Start building →</a>
+<main class="shell" id="app">
+  <section class="app glass">
+    <div class="app-head">
+      <div>
+        <p class="crumb" id="crumb">Step 1 of 4</p>
+        <h1 id="title">Choose your brand</h1>
+      </div>
+      <span class="pill" id="pill">Car Decor · Jayanagar, Bengaluru</span>
     </div>
-    <div class="hero-photo">
-      <img src="assets/cars/creta.jpg" alt="Hyundai Creta with alloy wheels" onerror="this.onerror=null;this.src='https://stimg.cardekho.com/images/expert-review/hyundai-creta/20250327_183330/930x620/Hyundai_Creta-1420250327_183330.jpg'">
-      <span class="hero-tag">Alloy wheels <b>·</b> 10 designs</span>
+    <div class="body">
+      <aside class="options" id="options" aria-live="polite"></aside>
+      <div class="stage">
+        <div class="car-wrap" id="car"></div>
+        <div class="specs" id="specs"></div>
+        <div class="thumbs" id="thumbs" aria-label="Models"></div>
+        <div class="bottom">
+          <p id="summary">Pick a brand to start.</p>
+          <a class="btn" id="book" href="tel:+919845859785" aria-disabled="true">Book this build →</a>
+        </div>
+      </div>
     </div>
-  </section>
-
-  <section class="band" aria-label="Brands we work with">
-    <div class="band-in">
-      <p>Brands we fit</p>
-      <ul>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Hyundai.webp" alt="Hyundai"></li>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Tata.webp" alt="Tata"></li>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Kia.webp" alt="Kia"></li>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Audi.webp" alt="Audi"></li>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Honda.webp" alt="Honda"></li>
-        <li><img src="https://cardecorindia.in/wp-content/uploads/2025/11/Renault.webp" alt="Renault"></li>
-      </ul>
-    </div>
-  </section>
-
-  <section class="configurator" id="configure" hidden>
-    <div class="panel" id="panel"></div>
-    <aside class="preview" id="preview" aria-live="polite"></aside>
   </section>
 </main>
 
-<footer class="visit" id="visit">
-  <div class="visit-in">
-    <div>
-      <h2>Visit the studio.</h2>
-      <p>16/1-1, 19th Cross Rd, Jaya Nagar 1st Block, Jayanagar, Bengaluru 560011</p>
-      <p><a href="tel:+919845859785">+91 98458 59785</a> · <a href="https://instagram.com/cardecorofficial">@cardecorofficial</a></p>
-      <a class="btn" href="tel:+919845859785">Call to book →</a>
-    </div>
-    <div class="visit-logo"><img src="assets/logo.png" alt="Car Decor" onerror="this.onerror=null;this.src='https://cardecorindia.in/wp-content/uploads/2025/05/cardecor_logo_20_1_-removebg-preview-1.png'"></div>
+<div class="intro">
+  <span><b>Car Decor</b> · Car accessories, alloys and upgrades since 1992</span>
+  <span>Previews are for choosing only. Prices and fitment are confirmed in the studio.</span>
+</div>
+
+<footer class="foot glass" id="visit">
+  <div>
+    <h2>Visit the studio.</h2>
+    <p>16/1-1, 19th Cross Rd, Jaya Nagar 1st Block, Jayanagar, Bengaluru 560011</p>
+    <p><a href="tel:+919845859785">+91 98458 59785</a> · <a href="https://instagram.com/cardecorofficial">@cardecorofficial</a></p>
   </div>
+  <div><p>Alloy wheels, seat covers, PPF, ceramic coating, audio and infotainment.</p></div>
+  <a class="btn" href="tel:+919845859785">Call to book →</a>
 </footer>
 
 <script>
@@ -185,62 +217,135 @@ const D = {
     {id:"kia",name:"Kia",logo:"https://cardecorindia.in/wp-content/uploads/2025/11/Kia.webp"}
   ],
   models: [
-    {id:"creta",brand:"hyundai",name:"Creta",photo:"https://stimg.cardekho.com/images/expert-review/hyundai-creta/20250327_183330/930x620/Hyundai_Creta-1420250327_183330.jpg",
+    {id:"creta",brand:"hyundai",name:"Creta",photo:"assets/cars/creta.jpg",r:"https://stimg.cardekho.com/images/expert-review/hyundai-creta/20250327_183330/930x620/Hyundai_Creta-1420250327_183330.jpg",
      colours:["Abyss Black","Robust Emerald Pearl","Fiery Red","Ranger Khaki","Atlas White","Titan Grey","Starry Night"]},
-    {id:"brezza",brand:"maruti",name:"Brezza",photo:"https://stimg.cardekho.com/images/expert-review/select-model/20260727_193835/930x620/Maruti-Brezza-FD-Statics1520260727_193835.jpg",
+    {id:"venue",brand:"hyundai",name:"Venue",photo:"assets/cars/venue.jpg",r:"https://stimg.cardekho.com/images/carexteriorimages/630x420/Hyundai/Venue/12999/1771931633886/front-left-side-47.jpg?tr=w-664",
+     colours:["Dragon Red","Atlas White","Titan Grey","Hazel Blue","Mystic Sapphire","Titanium Black"]},
+    {id:"brezza",brand:"maruti",name:"Brezza",photo:"assets/cars/brezza.jpg",r:"https://stimg.cardekho.com/images/expert-review/select-model/20260727_193835/930x620/Maruti-Brezza-FD-Statics1520260727_193835.jpg",
      colours:["Lustrous Beige","Pearl Arctic White","Pearl Bluish Black","Magma Grey","Sizzling Red","Vivacious Orange","Splendid Silver"]},
-    {id:"thar",brand:"mahindra",name:"Thar",photo:"https://stimg.cardekho.com/images/expert-review/select-model/20260926_120417/930x620/Mahindra-Thar-OG-FD-Statics920260926_120417.jpg",
+    {id:"swift",brand:"maruti",name:"Swift",photo:"assets/cars/swift.jpg",r:"https://stimg.cardekho.com/images/carexteriorimages/630x420/Maruti/Swift/9226/1755777061785/front-left-side-47.jpg?tr=w-664",
+     colours:["Pearl Arctic White","Sizzling Red","Luster Blue","Bluish Black","Magma Grey","Splendid Silver","Novel Orange"]},
+    {id:"thar",brand:"mahindra",name:"Thar",photo:"assets/cars/thar.jpg",r:"https://stimg.cardekho.com/images/expert-review/select-model/20260926_120417/930x620/Mahindra-Thar-OG-FD-Statics920260926_120417.jpg",
      colours:["Everest White","Galaxy Grey","Stealth Black","Jeans Blue","Battleship Grey","Deep Forest","Tango Red","Artemis Silver"]},
-    {id:"nexon",brand:"tata",name:"Nexon",photo:"https://stimg.cardekho.com/images/carexteriorimages/630x420/Tata/Nexon/11115/1779101151711/front-left-side-47.jpg?tr=w-664",
+    {id:"scorpio-n",brand:"mahindra",name:"Scorpio N",photo:"assets/cars/scorpio-n.jpg",r:"https://stimg.cardekho.com/images/carexteriorimages/630x420/Mahindra/Scorpio-N/13740/1785926288341/front-left-side-47.jpg?tr=w-664",
+     colours:["Everest White","Galaxy Grey","Stealth Black","Oceanic","Deep Forest"]},
+    {id:"nexon",brand:"tata",name:"Nexon",photo:"assets/cars/nexon.jpg",r:"https://stimg.cardekho.com/images/carexteriorimages/630x420/Tata/Nexon/11115/1779101151711/front-left-side-47.jpg?tr=w-664",
      colours:["Pristine White","Pure Grey","Daytona Grey","Ocean Blue","Royal Blue","Grassland Beige","Atlas Black"]},
-    {id:"seltos",brand:"kia",name:"Seltos",photo:"https://stimg.cardekho.com/pwa/img-gallery-2/kia-seltos/02-top02-side-profile-gt-line.jpg?tr=w-664",
-     colours:["Glacier White Pearl","Aurora Black Pearl","Imperial Blue","Magma Red","Gravity Grey","Pewter Olive","Frost Blue"]}
+    {id:"punch",brand:"tata",name:"Punch",photo:"assets/cars/punch.jpg",r:"https://stimg.cardekho.com/pwa/img-gallery-2/tata-punch/02-top02-left-side-profile.jpg?tr=w-664",
+     colours:["Coorg Clouds","Pristine White","Daytona Grey","Caramel","Bengal Rouge","Cyantific Blue"]},
+    {id:"seltos",brand:"kia",name:"Seltos",photo:"assets/cars/seltos.jpg",r:"https://stimg.cardekho.com/pwa/img-gallery-2/kia-seltos/02-top02-side-profile-gt-line.jpg?tr=w-664",
+     colours:["Glacier White Pearl","Aurora Black Pearl","Imperial Blue","Magma Red","Gravity Grey","Pewter Olive","Frost Blue"]},
+    {id:"sonet",brand:"kia",name:"Sonet",photo:"assets/cars/sonet.jpg",r:"https://stimg.cardekho.com/pwa/img-gallery-2/kia-sonet/02-top02-left-side-profile.jpg?tr=w-664",
+     colours:["Glacier White Pearl","Magma Red","Aurora Black Pearl","Matte Graphite","Imperial Blue","Pewter Olive","Gravity Grey"]}
   ],
   alloys: Array.from({length:10},(_,i)=>({id:"a"+(i+1),name:"OZ alloy "+String(i+1).padStart(2,"0"),img:"assets/alloys/alloy-"+String(i+1).padStart(2,"0")+".png"}))
 };
-// Wheel centres on each side-view photo: [x%, y%, radius% of photo width], plus the photo's aspect ratio.
+// Wheel centres on side-view photos: [x%, y%, radius% of photo width]; aspect ratio of the photo.
 const WHEELS={
   creta:{ar:"930 / 488", w:[[36.0,75.8,5.2],[75.8,76.2,5.2]]},
   brezza:{ar:"930 / 523", w:[[22.0,75.5,5.6],[65.4,74.6,5.4]]},
   thar:{ar:"930 / 523", w:[[29.8,72.3,6.7],[75.5,72.1,6.7]]},
-  seltos:{ar:"664 / 443", w:[[17.8,68.8,8.3],[85.8,68.8,8.3]]}
+  seltos:{ar:"664 / 443", w:[[17.8,68.8,8.3],[85.8,68.8,8.3]]},
+  punch:{ar:"664 / 443", w:[[24.1,68.8,7.2],[81.0,67.7,7.2]]},
+  sonet:{ar:"664 / 443", w:[[20.8,67.7,7.2],[77.6,67.7,7.2]]}
 };
-const S={brand:null,model:null,colour:null,alloy:null};
-const $=id=>document.getElementById(id), panel=$("panel"), prev=$("preview"), stage=$("configure");
+const S={brand:null,model:null,colour:null,alloy:null,step:"brand"};
+const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const byId=(l,id)=>l.find(x=>x.id===id);
-function markSteps(step){document.querySelectorAll("[data-s]").forEach(e=>e.classList.toggle("on",e.dataset.s===step))}
-function show(step){
-  stage.hidden=false; markSteps(step);
-  if(step==="brand") panel.innerHTML=`<p class="eyebrow">Step 1 of 4</p><h2>Choose your brand</h2><div class="grid">${D.brands.map(b=>`<button class="tile ${S.brand&&S.brand.id===b.id?"on":""}" data-brand="${b.id}"><span class="tlogo">${b.logo?`<img src="${b.logo}" alt="${esc(b.name)}">`:`<span class="tname">${esc(b.name)}</span>`}</span><span class="tlabel">${esc(b.name)}</span></button>`).join("")}</div>`;
-  if(step==="model"){const ms=D.models.filter(m=>m.brand===S.brand.id);panel.innerHTML=`<p class="eyebrow">Step 2 of 4</p><button class="back" data-go="brand">← Brands</button><h2>${esc(S.brand.name)}: choose a model</h2><div class="grid">${ms.map(m=>`<button class="tile ${S.model&&S.model.id===m.id?"on":""}" data-model="${m.id}"><img class="tphoto" src="${m.photo}" alt="${esc(S.brand.name+" "+m.name)}"><span class="tlabel">${esc(m.name)}</span></button>`).join("")}</div>`;}
-  if(step==="colour"){panel.innerHTML=`<p class="eyebrow">Step 3 of 4</p><button class="back" data-go="model">← Models</button><h2>${esc(S.model.name)}: pick your colour</h2><ul class="swatches">${S.model.colours.map((c,i)=>`<li><button class="swatch ${S.colour===c?"on":""}" data-colour="${i}"><span class="dot"></span><span>${esc(c)}</span></button></li>`).join("")}</ul><div class="next"><button class="btn" data-go="alloy" ${S.colour?"":"disabled"}>Next: alloys →</button></div>`;}
-  if(step==="alloy"){panel.innerHTML=`<p class="eyebrow">Step 4 of 4</p><button class="back" data-go="colour">← Colours</button><h2>Choose your alloy wheels</h2><div class="grid alloys">${D.alloys.map(a=>`<button class="tile ${S.alloy===a.id?"on":""}" data-alloy="${a.id}"><img class="alloy-thumb" src="${a.img}" alt="${esc(a.name)}"><span class="tlabel">${esc(a.name)}</span></button>`).join("")}</div>`;}
-  preview();
+const onerr="this.onerror=null;this.src=this.dataset.r";
+
+function go(step){
+  if(step==="model"&&!S.brand) return;
+  if(step==="colour"&&!S.model) return;
+  if(step==="alloy"&&!S.colour) return;
+  S.step=step; render();
 }
-function carShot(m, a){
-  if(!m) return `<div class="carframe"><p>Your car appears here</p></div>`;
-  const W = WHEELS[m.id];
-  if(!W || !a) return `<div class="carframe"><img src="${m.photo}" alt="${esc(S.brand.name+" "+m.name)}"></div>`;
-  const wheels = W.w.map(([x,y,r]) => `<img class="wh" src="${a.img}" alt="" style="left:${x}%;top:${y}%;width:${(r*2*1.12).toFixed(2)}%">`).join("");
-  return `<div class="shot" style="aspect-ratio:${W.ar}"><img src="${m.photo}" alt="${esc(S.brand.name+" "+m.name)}">${wheels}</div>`;
+function render(){
+  const steps=["brand","model","colour","alloy"];
+  document.querySelectorAll(".steps button").forEach(b=>{
+    const k=b.dataset.go;
+    b.classList.toggle("on",k===S.step);
+    b.disabled=(k==="model"&&!S.brand)||(k==="colour"&&!S.model)||(k==="alloy"&&!S.colour);
+  });
+  const idx=steps.indexOf(S.step)+1;
+  $("crumb").textContent="Step "+idx+" of 4";
+  const titles={brand:"Choose your brand",model:S.brand?S.brand.name+" models":"Models",colour:S.model?S.model.name+" colours":"Colours",alloy:"Alloy wheels"};
+  $("title").textContent=titles[S.step];
+  renderOptions(); renderCar(); renderSpecs(); renderThumbs(); renderBottom();
 }
-function preview(){
-  const m=S.model, a=byId(D.alloys,S.alloy);
-  prev.innerHTML=`${carShot(m, a)}
-  <dl class="spec"><div><dt>Brand</dt><dd>${S.brand?esc(S.brand.name):"–"}</dd></div><div><dt>Model</dt><dd>${m?esc(m.name):"–"}</dd></div><div><dt>Colour</dt><dd>${S.colour?esc(S.colour):"–"}</dd></div><div><dt>Alloys</dt><dd>${a?esc(a.name):"–"}</dd></div></dl>
-  ${a?`<div class="wheel"><img src="${a.img}" alt="${esc(a.name)}"></div>`:""}
-  ${m&&S.colour&&a?`<a class="btn wide" href="tel:+919845859785">Book this build →</a>`:""}`;
+function renderOptions(){
+  const o=$("options");
+  if(S.step==="brand"){
+    o.innerHTML=`<div class="opt-grid">${D.brands.map((b,i)=>`<button class="card ${S.brand&&S.brand.id===b.id?"on":""}" style="--i:${i}" data-brand="${b.id}">${b.logo?`<span class="logo-tile"><img src="${b.logo}" alt="${esc(b.name)}" data-r="" onerror="this.style.display='none'"></span>`:`<span class="logo-tile"><span style="font-weight:800;color:#050506">${esc(b.name)}</span></span>`}<span class="name">${esc(b.name)}</span></button>`).join("")}</div>`;
+  }
+  if(S.step==="model"){
+    const ms=D.models.filter(m=>m.brand===S.brand.id);
+    o.innerHTML=`<div class="opt-grid wide">${ms.map((m,i)=>`<button class="card ${S.model&&S.model.id===m.id?"on":""}" style="--i:${i}" data-model="${m.id}"><span class="thumb"><img src="${m.photo}" data-r="${m.r}" onerror="${onerr}" alt="${esc(m.name)}"></span><span class="name">${esc(m.name)}<small>${m.colours.length} colours</small></span></button>`).join("")}</div>`;
+  }
+  if(S.step==="colour"){
+    o.innerHTML=`<ul class="swatch-list">${S.model.colours.map((c,i)=>`<li><button class="card ${S.colour===c?"on":""}" style="--i:${i}" data-colour="${c}"><span class="dot"></span><span class="label">${esc(c)}</span></button></li>`).join("")}</ul>`;
+  }
+  if(S.step==="alloy"){
+    o.innerHTML=`<div class="opt-grid">${D.alloys.map((a,i)=>`<button class="card ${S.alloy===a.id?"on":""}" style="--i:${i}" data-alloy="${a.id}"><span class="thumb"><img class="alloy-img" src="${a.img}" alt="${esc(a.name)}"></span><span class="name">${esc(a.name)}</span></button>`).join("")}</div>`;
+  }
+}
+function renderCar(){
+  const m=S.model||byId(D.models,"creta");
+  const a=S.alloy?byId(D.alloys,S.alloy):null;
+  const W=WHEELS[m.id];
+  const tag=`<span class="tag">${esc(m.name)} <b>·</b> ${S.colour?esc(S.colour):"pick a colour"}</span>`;
+  let inner;
+  if(!S.model){
+    inner=`<div class="placeholder"><b>Build your car</b>Choose a brand, then a model. Your car appears here.</div>`;
+    $("car").innerHTML=`<div class="shot" style="aspect-ratio:930/488"><img src="${m.photo}" data-r="${m.r}" onerror="${onerr}" alt="${esc(m.name)}"></div>`+tag;
+    return;
+  }
+  if(W&&a){
+    const wheels=W.w.map(([x,y,r],i)=>`<img class="wh" src="${a.img}" alt="" style="left:${x}%;top:${y}%;width:${(r*2*1.12).toFixed(2)}%;--i:${i}">`).join("");
+    inner=`<div class="shot" style="aspect-ratio:${W.ar}"><img src="${m.photo}" data-r="${m.r}" onerror="${onerr}" alt="${esc(m.name)}">${wheels}</div>`;
+  }else{
+    inner=`<img class="solo" src="${m.photo}" data-r="${m.r}" onerror="${onerr}" alt="${esc(m.name)}">`;
+  }
+  $("car").innerHTML=inner+tag+(a&&!W?`<span class="tag" style="left:auto;right:16px;top:auto;bottom:16px">Alloys: <b>${esc(a.name)}</b> (preview beside car)</span>`:"");
+}
+function renderSpecs(){
+  const a=byId(D.alloys,S.alloy);
+  const spec=(k,v)=>`<div class="spec"><span>${k}</span><b>${v}</b></div>`;
+  $("specs").innerHTML=spec("Brand",S.brand?esc(S.brand.name):"–")+spec("Model",S.model?esc(S.model.name):"–")+spec("Colour",S.colour?esc(S.colour):"–")+spec("Alloys",a?esc(a.name):"–");
+}
+function renderThumbs(){
+  const list=S.brand?D.models.filter(m=>m.brand===S.brand.id):D.models;
+  $("thumbs").innerHTML=list.map(m=>`<button class="thumb-btn ${S.model&&S.model.id===m.id?"on":""}" data-pick="${m.id}" aria-label="${esc(m.name)}"><img src="${m.photo}" data-r="${m.r}" onerror="${onerr}" alt=""><span>${esc(m.name)}</span></button>`).join("");
+}
+function renderBottom(){
+  const ready=S.model&&S.colour&&S.alloy;
+  const b=$("book");
+  b.setAttribute("aria-disabled",ready?"false":"true");
+  b.style.pointerEvents=ready?"auto":"none";
+  b.style.opacity=ready?"1":".45";
+  const parts=[];
+  if(S.model) parts.push(`<b>${esc(S.model.name)}</b>`);
+  if(S.colour) parts.push(esc(S.colour));
+  if(S.alloy) parts.push(esc(byId(D.alloys,S.alloy).name));
+  $("summary").innerHTML=parts.length?parts.join(" · "):"Pick a brand to start.";
+}
+function pickModel(id){
+  const m=byId(D.models,id);
+  S.brand=byId(D.brands,m.brand); S.model=m; S.colour=null; S.step="colour"; render();
 }
 document.addEventListener("click",e=>{
-  const t=e.target.closest("button,a[href='#configure']"); if(!t) return;
-  if(t.id==="start"){e.preventDefault();show("brand");stage.scrollIntoView({behavior:"smooth"});return;}
-  if(t.dataset.go){show(t.dataset.go);return;}
-  if(t.dataset.brand){S.brand=byId(D.brands,t.dataset.brand);S.model=S.colour=null;show("model");return;}
-  if(t.dataset.model){S.model=byId(D.models,t.dataset.model);S.colour=null;show("colour");return;}
-  if(t.dataset.colour!==undefined){S.colour=S.model.colours[+t.dataset.colour];show("colour");return;}
-  if(t.dataset.alloy){S.alloy=t.dataset.alloy;show("alloy");return;}
+  const t=e.target.closest("button[data-go],button[data-brand],button[data-model],button[data-colour],button[data-alloy],button[data-pick]");
+  if(!t||t.disabled) return;
+  if(t.dataset.go) return go(t.dataset.go);
+  if(t.dataset.brand){S.brand=byId(D.brands,t.dataset.brand);S.model=S.colour=null;S.step="model";return render();}
+  if(t.dataset.model){S.model=byId(D.models,t.dataset.model);S.colour=null;S.step="colour";return render();}
+  if(t.dataset.colour!==undefined){S.colour=t.dataset.colour;S.step="alloy";return render();}
+  if(t.dataset.alloy){S.alloy=t.dataset.alloy;return render();}
+  if(t.dataset.pick) return pickModel(t.dataset.pick);
 });
+document.getElementById("book").addEventListener("click",e=>{ if(e.currentTarget.getAttribute("aria-disabled")==="true") e.preventDefault(); });
+render();
 </script>
 </body>
 </html>
