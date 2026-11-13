@@ -285,7 +285,7 @@ function panel(){
 }
 function head(){
   const m=model(),b=brand(m.brand),c=m.colours[S.colour],w=wheel();
-  $("make").innerHTML=`<img src="${b.l}" alt="">${b.n}`;$("title").textContent=m.name;
+  $("make").innerHTML=b.id==="maruti"?`<img src="${b.l}" alt="">${b.n}`:`<img src="${b.l}" alt="${b.n}" style="height:${b.id==="mahindra"?20:26}px">`;$("title").textContent=m.name;
   $("spec").innerHTML=`<b>${esc(c.n)}</b> · ${w?esc(w.n):"Factory wheels"}`;
   $("quick").innerHTML=m.colours.map((c,i)=>`<button class="qd" style="--c:${c.h}" data-colour="${i}" aria-pressed="${i===S.colour}" aria-label="${esc(c.n)}" title="${esc(c.n)}"></button>`).join("");
   $("view").style.visibility=w?"visible":"hidden";
