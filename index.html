@@ -1,251 +1,318 @@
 <!doctype html>
-<html lang="en" data-type="product">
+<html lang="en" data-type="product" data-radius="soft">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Car Decor, Jayanagar, Bengaluru. Choose your car, its colour and alloy wheels, and see them fitted.">
+<title>Alloy wheel configurator | Car Decor, Jayanagar</title>
+<meta name="description" content="Choose your car and its colour, then see OZ Racing and MSW alloy wheels fitted on it. Car Decor, Jayanagar, Bengaluru.">
 <meta name="page-type" content="product">
-<meta name="site-kind" content="product">
-<title>Car Decor | Build your car</title>
+<meta name="site-kind" content="other">
+<meta name="theme-color" content="#0b0b0c">
+<meta property="og:title" content="Car Decor alloy wheel configurator">
+<meta property="og:description" content="See OZ Racing and MSW alloys fitted on your car before you visit the studio.">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://stimg.cardekho.com">
 <style>
-:root{--red:#d80015;--red-press:#b00010;--bg:#0b0b0c;--panel:#111113;--tile:#1a1a1d;--tile-hi:#232327;--text:#f4f4f5;--soft:#a3a3a8;--ease:cubic-bezier(.2,.8,.2,1);--bar:68px}
+/* tokens dealt by tasteskill start.mjs brand (product, archivo, soft) */
+:root{
+  --p-bg:#0b0b0c;--p-surface:#151517;--p-surface-2:#1d1d20;--p-ink:#f4f4f2;--p-muted:#9a9a9f;
+  --p-accent:#d80015;--p-accent-hi:#ef1a2e;--p-accent-ink:#fff;
+  --p-inv-bg:#f4f4f2;--p-inv-surface:#e1e1df;--p-inv-ink:#0b0b0c;--p-inv-muted:#585858;
+  --font:"Archivo",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --ease:cubic-bezier(.22,.8,.2,1);--ease-io:cubic-bezier(.65,0,.35,1);
+  --bar:68px;--panel:440px;--r:14px;
+}
 *{box-sizing:border-box}
 html,body{height:100%}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
-img{display:block;max-width:100%}a{color:inherit;text-decoration:none}
-button{font:inherit;color:inherit;cursor:pointer;background:none;border:0;padding:0}
-:focus-visible{outline:2px solid #fff;outline-offset:2px}
-[hidden]{display:none!important}
+body{margin:0;background:var(--p-bg);color:var(--p-ink);font:16px/1.5 var(--font);font-stretch:100%;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--p-accent);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-.bar{height:var(--bar);display:flex;align-items:center;gap:24px;padding:0 28px;background:var(--bg)}
-.bar .logo img{height:36px;width:auto}
-.bar .tag{color:var(--soft);font-size:15px}
-.call{margin-left:auto;background:#fff;color:#0b0b0c;font-weight:700;font-size:15px;padding:11px 20px;border-radius:999px;transition:transform .25s var(--ease),background .25s}
-.call:hover{background:#e8e8ea;transform:translateY(-1px)}.call:active{transform:scale(.97)}
+/* bar */
+.bar{height:var(--bar);display:flex;align-items:center;gap:28px;padding:0 24px 0 20px;border-bottom:1px solid #1f1f22;position:relative;z-index:5;background:var(--p-bg)}
+.logo{display:flex;align-items:center;background:#fff;border-radius:10px;padding:6px 12px;transition:transform .3s var(--ease)}
+.logo:hover{transform:translateY(-1px)}
+.logo img{height:30px;width:auto}
+.steps{display:flex;gap:4px;margin:0 auto}
+.steps button{position:relative;padding:10px 16px;font-size:15px;color:var(--p-muted);border-radius:999px;transition:color .25s,background .25s}
+.steps button:not(:disabled):hover{color:var(--p-ink);background:var(--p-surface)}
+.steps button[aria-current="step"]{color:var(--p-ink)}
+.steps button[aria-current="step"]::after{content:"";position:absolute;left:16px;right:16px;bottom:3px;height:2px;border-radius:2px;background:var(--p-accent);animation:draw .45s var(--ease) both}
+.steps button:disabled{opacity:.35;cursor:default}
+.bar .call{font-size:15px;font-weight:600;padding:10px 18px;border-radius:999px;border:1px solid #333338;transition:background .25s,border-color .25s,transform .2s}
+.bar .call:hover{background:var(--p-surface);border-color:#4a4a50}
+.bar .call:active{transform:scale(.97)}
 
-.app{display:grid;grid-template-columns:minmax(380px,31%) 1fr;height:calc(100vh - var(--bar));min-height:640px}
-.panel{background:var(--panel);display:flex;flex-direction:column;min-height:0}
-.tabs{display:flex;gap:8px;padding:22px 24px 0}
-.tabs button{flex:1;padding:11px 6px;border-radius:12px;background:var(--tile);color:var(--soft);font-size:14px;font-weight:600;transition:background .25s,color .25s}
-.tabs button:not(:disabled):hover{background:var(--tile-hi);color:#fff}
-.tabs button.on{background:#fff;color:#0b0b0c}
-.tabs button:disabled{opacity:.4;cursor:not-allowed}
-.head{padding:28px 24px 8px}
-.head h1{margin:0;font-size:34px;line-height:1.05;letter-spacing:-.03em;font-weight:800}
-.head p{margin:8px 0 0;color:var(--soft);font-size:15px}
-.scroll{flex:1;min-height:0;overflow-y:auto;padding:16px 24px 24px;scrollbar-width:thin;scrollbar-color:#333 transparent}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.grid.a{grid-template-columns:repeat(3,1fr);gap:10px}
-.opt{display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:16px;background:var(--tile);text-align:left;transition:background .25s,transform .35s var(--ease);}
-.opt:hover{background:var(--tile-hi);transform:translateY(-2px)}.opt:active{transform:scale(.98)}
-.opt.on{background:var(--tile-hi);box-shadow:inset 0 0 0 2px var(--red)}
-.opt .lt{height:84px;border-radius:10px;background:#0b0b0c;display:grid;place-items:center}
-.opt .lt img{max-height:44px;max-width:72%;object-fit:contain;filter:brightness(0) invert(1);transition:transform .4s var(--ease)}
-.opt:hover .lt img{transform:scale(1.08)}
-.opt .ph{border-radius:10px;overflow:hidden;aspect-ratio:3/2;background:#000}
-.opt .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
-.opt:hover .ph img{transform:scale(1.06)}
-.opt .wl{aspect-ratio:1/1;border-radius:10px;background:#0b0b0c;display:grid;place-items:center}
-.opt .wl img{width:88%;height:88%;object-fit:contain;transition:transform .5s var(--ease)}
-.opt:hover .wl img{transform:scale(1.06)}
-.opt b{font-size:15px;font-weight:700;padding:0 2px}
-.opt small{display:block;color:var(--soft);font-size:13px;font-weight:500}
-.sws{display:grid;grid-template-columns:repeat(auto-fill,minmax(64px,1fr));gap:14px}
-.sw{display:grid;place-items:center;aspect-ratio:1;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.18);transition:transform .3s var(--ease),box-shadow .3s}
-.sw:hover{transform:scale(1.08)}.sw.on{box-shadow:0 0 0 3px var(--panel),0 0 0 5px #fff}
-.dot{width:34px;height:34px;border-radius:50%;background:var(--c);flex:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.22)}
-.cn{margin:22px 0 0;font-size:18px;font-weight:700}
-.nx{margin-top:22px}.nx:disabled{background:var(--tile);color:#6a6a70;cursor:not-allowed}
+/* app */
+.app{display:grid;grid-template-columns:minmax(0,1fr) var(--panel);height:calc(100vh - var(--bar));min-height:620px}
+.stage{position:relative;overflow:hidden;color:var(--p-inv-ink);background:radial-gradient(110% 85% at 50% 38%,#fdfdfc 0%,#f1f0ed 52%,#e2e0dc 100%)}
+.stage-head{transition:opacity .5s var(--ease),transform .6s var(--ease);position:absolute;left:clamp(20px,3vw,44px);top:clamp(20px,3.2vw,40px);z-index:3;max-width:70%}
+.make{display:flex;align-items:center;gap:10px;color:var(--p-inv-muted);font-size:16px;font-weight:500}
+.make img{height:22px;width:auto;filter:brightness(0);opacity:.8}
+.stage h1{margin:6px 0 0;font-size:clamp(44px,6.2vw,104px);line-height:.92;letter-spacing:-.035em;font-weight:500;font-stretch:112%}
+.spec{margin:14px 0 0;font-size:17px;color:#3c3c3f}
+.spec b{font-weight:600;color:var(--p-inv-ink)}
+.stage.zoomed .stage-head{opacity:0;transform:translateY(-12px);pointer-events:none}
+.frame{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform 1.05s var(--ease-io);mix-blend-mode:multiply}
+.layer{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity .5s var(--ease),transform .8s var(--ease)}
+.layer.on{opacity:1;transform:none}
+.layer.from-right{transform:translateX(48px)}
+.layer.to-left{transform:translateX(-48px);opacity:0}
+.stage-foot{position:absolute;left:clamp(20px,3vw,44px);right:clamp(20px,3vw,44px);bottom:clamp(18px,2.6vw,32px);z-index:3;display:flex;align-items:flex-end;justify-content:space-between;gap:20px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;max-width:60%}
+.qd{width:28px;height:28px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(0,0,0,.18);transition:transform .25s var(--ease),box-shadow .25s}
+.qd:hover{transform:scale(1.12)}
+.qd[aria-pressed="true"]{box-shadow:0 0 0 2px var(--p-inv-bg),0 0 0 4px var(--p-inv-ink)}
+.view{display:flex;align-items:center;gap:8px}
+.seg{display:flex;background:#fff;border-radius:999px;padding:4px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.seg button{padding:9px 16px;border-radius:999px;font-size:14px;font-weight:600;color:#55555a;transition:background .25s,color .25s}
+.seg button[aria-pressed="true"]{background:var(--p-inv-ink);color:#fff}
+.arrow{width:42px;height:42px;border-radius:50%;background:#fff;display:grid;place-items:center;box-shadow:0 1px 2px rgba(0,0,0,.08);transition:transform .2s var(--ease),background .2s}
+.arrow:hover{transform:translateY(-2px)}.arrow:active{transform:scale(.94)}
+.arrow svg{width:18px;height:18px}
+.hint{position:absolute;left:50%;bottom:clamp(76px,9vw,100px);transform:translateX(-50%);z-index:3;font-size:14px;color:#55555a;background:rgba(255,255,255,.75);padding:8px 14px;border-radius:999px;opacity:0;transition:opacity .4s}
+.hint.show{opacity:1}
 
-.foot{padding:18px 24px 22px;background:var(--panel);display:flex;align-items:center;justify-content:space-between;gap:14px}
-.foot p{margin:0;font-size:14px;color:var(--soft);min-width:0}.foot p b{color:#fff;display:block;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.btn{background:var(--red);color:#fff;font-weight:700;padding:14px 24px;border-radius:999px;font-size:15px;white-space:nowrap;transition:background .25s,transform .25s var(--ease)}
-.btn:hover{background:#ec1c30;transform:translateY(-1px)}.btn:active{background:var(--red-press);transform:scale(.97)}
-.btn[aria-disabled=true]{background:var(--tile);color:#6a6a70;pointer-events:none}
+/* panel */
+.panel{display:flex;flex-direction:column;min-height:0;background:var(--p-bg);border-left:1px solid #1f1f22}
+.p-head{padding:28px 28px 6px}
+.p-head h2{margin:0;font-size:30px;line-height:1.05;letter-spacing:-.025em;font-weight:500;font-stretch:110%}
+.p-head p{margin:8px 0 0;color:var(--p-muted);font-size:15px}
+.p-body{flex:1;min-height:0;overflow-y:auto;padding:18px 28px 28px;scrollbar-width:thin;scrollbar-color:#2a2a2e transparent}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.grid.w{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.opt{position:relative;display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:var(--r);background:var(--p-surface);text-align:left;transition:background .25s,transform .3s var(--ease);animation:rise .5s var(--ease) both;animation-delay:calc(var(--i,0)*40ms)}
+.opt:hover{background:var(--p-surface-2);transform:translateY(-2px)}
+.opt:active{transform:scale(.98)}
+.opt[aria-pressed="true"]{background:var(--p-surface-2);box-shadow:inset 0 0 0 2px var(--p-accent)}
+.opt .lg{height:86px;border-radius:10px;background:#0f0f11;display:grid;place-items:center}
+.opt .lg img{max-height:40px;max-width:70%;filter:brightness(0) invert(1);opacity:.92;transition:transform .35s var(--ease)}
+.opt:hover .lg img{transform:scale(1.07)}
+.opt .ph{border-radius:10px;background:var(--p-inv-bg);aspect-ratio:3/2;overflow:hidden}
+.opt .ph img{width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;transition:transform .6s var(--ease)}
+.opt:hover .ph img{transform:scale(1.05)}
+.opt .wl{aspect-ratio:1;border-radius:10px;background:radial-gradient(circle at 50% 45%,#2a2a2e,#0f0f11 72%);display:grid;place-items:center;overflow:hidden}
+.opt .wl img{width:90%;height:90%;object-fit:contain;transition:transform .7s var(--ease)}
+.opt:hover .wl img{transform:rotate(24deg) scale(1.04)}
+.opt .wl.factory{background:#0f0f11;color:var(--p-muted);font-size:13px;text-align:center;padding:12px}
+.opt b{font-weight:600;font-size:15px;line-height:1.25;padding:0 2px}
+.opt small{display:block;color:var(--p-muted);font-size:13px;font-weight:400}
+.sw-grid{display:flex;flex-wrap:wrap;gap:14px}
+.sw{width:56px;height:56px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14);transition:transform .25s var(--ease),box-shadow .25s;animation:rise .45s var(--ease) both;animation-delay:calc(var(--i,0)*30ms)}
+.sw:hover{transform:scale(1.08)}
+.sw[aria-pressed="true"]{box-shadow:0 0 0 3px var(--p-bg),0 0 0 5px var(--p-ink)}
+.cname{margin:22px 0 0;font-size:22px;font-weight:500;letter-spacing:-.01em}
+.cname small{display:block;color:var(--p-muted);font-size:14px;margin-top:2px}
+.chips{display:flex;gap:6px;margin:0 0 14px}
+.chip{padding:8px 14px;border-radius:999px;background:var(--p-surface);font-size:14px;color:var(--p-muted);transition:background .25s,color .25s}
+.chip:hover{color:var(--p-ink)}
+.chip[aria-pressed="true"]{background:var(--p-ink);color:var(--p-bg)}
+.next{margin-top:26px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--p-accent);color:#fff;font-weight:600;font-size:16px;padding:15px 24px;border-radius:999px;transition:background .25s,transform .2s var(--ease)}
+.btn:hover{background:var(--p-accent-hi);transform:translateY(-1px)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--p-surface);color:var(--p-ink)}
+.btn.ghost:hover{background:var(--p-surface-2)}
+.p-foot{border-top:1px solid #1f1f22;padding:18px 28px 22px;display:grid;gap:14px}
+.sum{display:flex;justify-content:space-between;gap:12px;font-size:14px;color:var(--p-muted)}
+.sum b{display:block;color:var(--p-ink);font-size:16px;font-weight:600}
+.sum .wsum{text-align:right}
+.ctas{display:grid;grid-template-columns:1fr auto;gap:10px}
+.credit{margin:0;color:#5c5c62;font-size:12px}
 
-.stage{position:relative;overflow:hidden;background:#050506;min-height:0}
-.shot{position:absolute;left:0;top:0;transform-origin:0 0;transition:transform .9s cubic-bezier(.45,.05,.2,1)}
-.shot>canvas.car{width:100%;height:100%;display:block;animation:cfade .45s ease both}
-.wh{position:absolute;translate:-50% -50%}
-.wh::before{content:"";position:absolute;inset:9%;border-radius:50%;background:#0a0a0a}
-.wh img{position:relative}
-.wh img{width:100%;height:100%;object-fit:contain}
-.wh{animation:wfade .4s var(--ease) both}
-.cap{position:absolute;left:32px;bottom:28px;z-index:3;pointer-events:none}
-.cap h2{margin:0;font-size:clamp(28px,3.4vw,52px);line-height:1;letter-spacing:-.035em;font-weight:800;text-shadow:0 2px 24px rgba(0,0,0,.7)}
-.cap p{margin:8px 0 0;font-size:16px;color:#e6e6e8;text-shadow:0 1px 12px rgba(0,0,0,.8)}
-.ctl{position:absolute;right:24px;bottom:24px;z-index:3;display:flex;gap:8px;align-items:center}
-.seg{display:flex;background:#0b0b0c;border-radius:999px;padding:4px}
-.seg button{padding:10px 18px;border-radius:999px;font-size:14px;font-weight:700;color:var(--soft);transition:background .25s,color .25s}
-.seg button.on{background:#fff;color:#0b0b0c}
-.ar{width:44px;height:44px;border-radius:50%;background:#0b0b0c;display:grid;place-items:center;font-size:18px;transition:background .25s,transform .25s var(--ease)}
-.ar:hover{background:#26262a;transform:scale(1.06)}.ar:active{transform:scale(.94)}
-.empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:40px}
-.empty h2{margin:0 0 10px;font-size:clamp(34px,4.6vw,72px);line-height:1;letter-spacing:-.04em;font-weight:800}
-.empty p{margin:0;color:var(--soft);font-size:18px}
-.pile{position:absolute;inset:0;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,1fr)}
-.pile img{width:100%;height:100%;object-fit:cover;filter:brightness(.55)}
-.empty>div{position:relative;z-index:2}
-
-.studio{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:56px 28px;background:var(--bg)}
-.studio h2{margin:0 0 6px;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.035em;line-height:1.05}
-.studio p{margin:2px 0;color:var(--soft)}.studio a:not(.btn){color:#fff;text-decoration:underline;text-underline-offset:4px}
-
-@keyframes in{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@keyframes cfade{from{opacity:.0}to{opacity:1}}
-@keyframes wfade{from{opacity:0;scale:.94}to{opacity:1;scale:1}}
-@media(max-width:900px){
-  .bar{padding:0 16px}.bar .tag{display:none}
-  .app{grid-template-columns:1fr;grid-template-rows:auto auto;height:auto;min-height:0}
-  .stage{order:-1;height:62vw;min-height:260px}
-  .scroll{max-height:none;overflow:visible}
-  .cap{left:16px;bottom:14px}.ctl{right:12px;bottom:12px}.seg button{padding:8px 12px;font-size:13px}
-  .grid.a{grid-template-columns:repeat(3,1fr)}
-  .studio{grid-template-columns:1fr}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.enter{animation:rise .8s var(--ease) both}
+@media(max-width:960px){
+  :root{--bar:60px}
+  .bar{gap:12px;padding:0 14px}.steps{display:none}.bar .call{margin-left:auto}
+  .app{grid-template-columns:1fr;height:auto}
+  .stage{height:min(122vw,640px);min-height:440px}
+  .stage h1{font-size:clamp(36px,9vw,60px)}
+  .spec{font-size:15px}
+  .quick{display:none}
+  .panel{border-left:0}
+  .p-body{overflow:visible}
+  .grid.w{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 </style>
 </head>
 <body>
 <header class="bar">
-  <a class="logo" href="./" aria-label="Car Decor"><img src="logo.png" alt="Car Decor"></a>
-  <span class="tag">Build your car. Try alloy wheels before you visit.</span>
-  <a class="call" href="tel:+919845859785">Call 98458 59785</a>
+  <a class="logo" href="https://cardecorindia.in/" aria-label="Car Decor home"><img src="logo.png" alt="Car Decor"></a>
+  <nav class="steps" aria-label="Build steps">
+    <button data-go="brand">Brand</button><button data-go="model">Model</button><button data-go="colour">Colour</button><button data-go="wheels">Wheels</button>
+  </nav>
+  <a class="call" href="tel:+919845859785">Call the studio</a>
 </header>
 
 <main class="app">
-  <section class="panel" aria-label="Choose">
-    <nav class="tabs" aria-label="Steps">
-      <button data-go="brand">Brand</button><button data-go="model">Model</button><button data-go="colour">Colour</button><button data-go="alloy">Alloys</button>
-    </nav>
-    <div class="head"><h1 id="title"></h1><p id="sub"></p></div>
-    <div class="scroll" id="opts" aria-live="polite"></div>
-    <div class="foot"><p id="sum"></p><a class="btn" id="book" href="tel:+919845859785" aria-disabled="true">Book this build</a></div>
+  <section class="stage" id="stage" aria-label="Your car">
+    <div class="stage-head enter">
+      <p class="make" id="make"></p>
+      <h1 id="title">Car Decor</h1>
+      <p class="spec" id="spec"></p>
+    </div>
+    <div class="frame" id="frame"><canvas class="layer" id="c0" width="1395" height="930" role="img" aria-label="Your car"></canvas><canvas class="layer" id="c1" width="1395" height="930" aria-hidden="true"></canvas></div>
+    <p class="hint" id="hint">Pick wheels to fit them</p>
+    <div class="stage-foot">
+      <div class="quick" id="quick" aria-label="Colours"></div>
+      <div class="view" id="view">
+        <button class="arrow" data-step="-1" aria-label="Previous wheel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="arrow" data-step="1" aria-label="Next wheel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="seg" role="group" aria-label="View"><button data-zoom="full" aria-pressed="true">Full car</button><button data-zoom="wheel" aria-pressed="false">Wheel</button></div>
+      </div>
+    </div>
   </section>
 
-  <section class="stage" id="stage" aria-label="Your car"></section>
+  <aside class="panel" aria-label="Build your car">
+    <div class="p-head"><h2 id="ptitle"></h2><p id="psub"></p></div>
+    <div class="p-body" id="pbody"></div>
+    <div class="p-foot">
+      <div class="sum"><div><b id="sCar"></b><span id="sCol"></span></div><div class="wsum"><b id="sWheel"></b><span>Wheels</span></div></div>
+      <div class="ctas"><a class="btn" id="book" href="#" target="_blank" rel="noopener">Book a fitting on WhatsApp</a><a class="btn ghost" href="tel:+919845859785" aria-label="Call Car Decor">Call</a></div>
+      <p class="credit">Car photos: CarDekho. Wheels: OZ Racing and MSW. Previews only; fitment is confirmed at 19th Cross Rd, Jayanagar.</p>
+    </div>
+  </aside>
 </main>
 
-<footer class="studio">
-  <div><h2>Visit the studio.</h2>
-    <p>16/1-1, 19th Cross Rd, Jaya Nagar 1st Block, Jayanagar, Bengaluru 560011</p>
-    <p><a href="tel:+919845859785">+91 98458 59785</a> · <a href="https://instagram.com/cardecorofficial">@cardecorofficial</a></p>
-    <p>Previews are for choosing. Prices and fitment are confirmed in the studio.</p></div>
-  <a class="btn" href="tel:+919845859785">Call to book</a>
-</footer>
-
 <script>
-const D={
- brands:[{id:"maruti",name:"Maruti Suzuki",logo:"l-maruti.svg"},{id:"mahindra",name:"Mahindra",logo:"l-mahindra.svg"},{id:"hyundai",name:"Hyundai",logo:"l-hyundai.webp"},{id:"tata",name:"Tata",logo:"l-tata.webp"},{id:"kia",name:"Kia",logo:"l-kia.webp"}],
- // w: [x%, y%, rim radius as % of photo width] for each visible wheel on the side-view photo
- models:[
-  {id:"creta",brand:"hyundai",name:"Creta",type:"Compact SUV",ar:930/488,w:[[36.0,75.8,3.9],[75.8,76.2,3.9]],colours:["Abyss Black","Robust Emerald Pearl","Fiery Red","Ranger Khaki","Atlas White","Titan Grey","Starry Night"]},
-  {id:"brezza",brand:"maruti",name:"Brezza",type:"Compact SUV",ar:930/523,w:[[22.0,75.5,4.2],[65.4,74.6,4.1]],colours:["Lustrous Beige","Pearl Arctic White","Pearl Bluish Black","Magma Grey","Sizzling Red","Vivacious Orange","Splendid Silver"]},
-  {id:"thar",brand:"mahindra",name:"Thar",type:"Off-roader",ar:930/523,w:[[29.8,72.3,5.0],[75.5,72.1,5.0]],colours:["Everest White","Galaxy Grey","Stealth Black","Jeans Blue","Battleship Grey","Deep Forest","Tango Red","Artemis Silver"]},
-  {id:"punch",brand:"tata",name:"Punch",type:"Micro SUV",ar:664/443,w:[[24.1,68.8,5.4],[81.0,67.7,5.4]],colours:["Coorg Clouds","Pristine White","Daytona Grey","Caramel","Bengal Rouge","Cyantific Blue"]},
-  {id:"seltos",brand:"kia",name:"Seltos",type:"Mid-size SUV",ar:664/443,w:[[17.8,68.8,6.2],[85.8,68.8,6.2]],colours:["Glacier White Pearl","Aurora Black Pearl","Imperial Blue","Magma Red","Gravity Grey","Pewter Olive","Frost Blue"]},
-  {id:"sonet",brand:"kia",name:"Sonet",type:"Compact SUV",ar:664/443,w:[[20.8,67.7,5.4],[77.6,67.7,5.4]],colours:["Glacier White Pearl","Magma Red","Aurora Black Pearl","Matte Graphite","Imperial Blue","Pewter Olive","Gravity Grey"]}
- ],
- alloys:Array.from({length:25},(_,i)=>({id:"a"+(i+1),name:"Style "+String(i+1).padStart(2,"0"),img:"a"+String(i+1).padStart(2,"0")+".webp"}))
-};
-const HEX=[["pearl arctic","#f1f1ee"],["white","#f1f1ee"],["pristine","#f1f1ee"],["glacier","#e9edf0"],["black","#0f0f11"],["abyss","#0d0e11"],["stealth","#111215"],["starry","#17233b"],["red","#c8101e"],["rouge","#b3182c"],["tango","#c0261b"],["fiery","#c8101e"],["orange","#e2701c"],["caramel","#b87333"],["beige","#cdb895"],["khaki","#8a8462"],["emerald","#0d4a3a"],["forest","#2c4a34"],["olive","#6b705a"],["graphite","#3c3e44"],["grey","#7a7d84"],["titan","#6a6d73"],["silver","#bfc2c7"],["sapphire","#17348a"],["jeans","#4c78b8"],["cyantific","#27a6d9"],["frost","#7fb2d6"],["imperial","#16306e"],["blue","#1d4fb8"],["clouds","#a8a9a2"]];
-const hex=n=>{n=n.toLowerCase();for(const[k,v]of HEX)if(n.includes(k))return v;return"#888"};
-const ORIG={creta:"Robust Emerald Pearl",brezza:"Pearl Bluish Black",thar:"Tango Red"};
-const IMGS={};
-function loadImg(src){return IMGS[src]||(IMGS[src]=new Promise(r=>{const i=new Image();i.onload=()=>r(i);i.src=src}))}
-const CAR={};
-async function prepCar(m){
- if(CAR[m.id])return CAR[m.id];
- const [im,mk]=await Promise.all([loadImg(car(m)),loadImg("m-"+m.id+".webp")]);
- const w=im.naturalWidth,h=im.naturalHeight,c=document.createElement("canvas");c.width=w;c.height=h;const x=c.getContext("2d");
- x.drawImage(im,0,0);const src=x.getImageData(0,0,w,h);
- x.clearRect(0,0,w,h);x.drawImage(mk,0,0,w,h);const md=x.getImageData(0,0,w,h).data,mask=new Float32Array(w*h),Ls=[];
- for(let i=0;i<w*h;i++){mask[i]=md[i*4]/255;if(mask[i]>.5&&i%7===0){const p=src.data;Ls.push(.299*p[i*4]+.587*p[i*4+1]+.114*p[i*4+2])}}
- Ls.sort((a,b)=>a-b);const lref=Math.max(Ls[Ls.length>>1]||60,20);
- return CAR[m.id]={w,h,src,mask,lref};
-}
-function paintCar(cv,m,colour){
- const d=CAR[m.id];if(!d)return;cv.width=d.w;cv.height=d.h;const x=cv.getContext("2d",{willReadFrequently:true});
- const out=new ImageData(new Uint8ClampedArray(d.src.data),d.w,d.h),p=out.data;
- if(colour&&ORIG[m.id]!==colour){
-  const T=rgb(hex(colour)),mean=(T[0]+T[1]+T[2])/3,dark=mean<60,kk=mean>150?.5:mean>100?.8:1;
-  for(let i=0;i<d.w*d.h;i++){const w=d.mask[i];if(w<.01)continue;const j=i*4;
-   const L=.299*p[j]+.587*p[j+1]+.114*p[j+2];let r=Math.pow(Math.min(2.4,Math.max(.25,L/d.lref)),.85);r=1+(r-1)*kk;
-   const sp=Math.min(1,Math.max(0,(r-1.35)))*.7;
-   for(let k=0;k<3;k++){let n=T[k]*r;n=n*(1-sp)+255*sp;if(dark)n+=6;p[j+k]=p[j+k]*(1-w)+Math.min(255,n)*w}}
- }
- x.putImageData(out,0,0);
-}
-const rgb=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
-const S={brand:null,model:null,colour:null,alloy:null,step:"brand",zoom:"full"};
-const $=i=>document.getElementById(i),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const by=(l,id)=>l.find(x=>x.id===id),car=m=>"c-"+m.id+".webp";
+const DATA=[{"id":"creta","brand":"hyundai","name":"Creta","type":"Mid-size SUV","face":"left","lift":1,"colours":[{"n":"Robust Emerald Pearl","h":"#62736a","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Robust-Emerald-Pearl_62736a.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Titanium Black Matte","h":"#31363b","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Titanium-Black-Matte_31363b.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Atlas White with Titanium Black","h":"#d6dce3","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Atlas-White-with-Titanium-Black_d6dce3.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Titan Grey Matte","h":"#6a6d77","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Titan-Grey-Matte_6a6d77.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Starry Night","h":"#1d2e52","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Starry-Night_1d2e52.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Atlas White","h":"#d8dfe5","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Atlas-White_d8dfe5.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Titan Grey","h":"#55585e","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Titan-Grey_55585e.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"Titanium Black","h":"#6a6b6d","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/Titanium-Black_6a6b6d.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]},{"n":"King Limited Edition Titanium Black Matte","h":"#2a2d30","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Creta/11439/1777531540562/King-Limited-Edition---Titanium-Black-Matte_2a2d30.jpg","w":[[458.5,404.0,32.5,50.0,1.0],[762.5,366.5,22.5,42.8,4.0]]}]},{"id":"venue","brand":"hyundai","name":"Venue","type":"Compact SUV","face":"left","lift":1,"colours":[{"n":"Dragon Red","h":"#983439","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Dragon-Red_983439.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Atlas White","h":"#9e9e9e","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Atlas-White_9e9e9e.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Titan Grey","h":"#7f8084","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Titan-Grey_7f8084.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Hazel Blue","h":"#373b44","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Hazel-Blue_373b44.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Atlas White with Abyss Black Roof","h":"#9b9b9b","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Atlas-White-with-Abyss-Black-Roof_9b9b9b.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Mystic Sapphire","h":"#131629","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Mystic-Sapphire_131629.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Hazel Blue with Abyss Black Roof","h":"#373b44","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Hazel-Blue-with-Abyss-Black-Roof_373b44.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]},{"n":"Abyss Black","h":"#151515","u":"https://stimg.cardekho.com/images/car-images/930x620/Hyundai/Venue/12694/1762319291173/Abyss-Black_151515.jpg","w":[[450.0,425.5,34.0,53.0,-5.0],[777.0,385.0,26.5,54.0,4.0]]}]},{"id":"brezza","brand":"maruti","name":"Brezza","type":"Compact SUV","face":"left","lift":1.02,"colours":[{"n":"Lustrous Beige with Bluish Black Roof","h":"#8d8472","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Lustrous-Beige-with-Bluish-Black-roof_8d8472.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Pearl Arctic White","h":"#d1d1d1","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Pearl-Arctic-White_d1d1d1.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Lustrous Beige","h":"#89806e","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Lustrous-Beige_89806e.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Sizzling Red with Bluish Black Roof","h":"#ac1420","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Sizzling-Red-with-Bluish-Black-roof_ac1420.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Vivacious Orange","h":"#a74c1f","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Vivacious-Orange_a74c1f.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Magma Grey","h":"#4e4e50","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Magma-Gray_4e4e50.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Pearl Arctic White with Bluish Black Roof","h":"#dadada","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Pearl-Arctic-White-with-Bluish-Black-Roof_dadada.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Pearl Bluish Black","h":"#272a31","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Pearl-Bluish-Black_272a31.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]},{"n":"Splendid Silver","h":"#93989b","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Brezza/13709/1785136477287/Splendid-Silver_93989b.jpg","w":[[458.5,428.0,36.0,48.5,2.0],[786,382.5,25,45,0]]}]},{"id":"swift","brand":"maruti","name":"Swift","type":"Hatchback","face":"right","lift":1,"colours":[{"n":"Pearl Arctic White","h":"#e8e8e8","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/230_Pearl-Arctic-White_e8e8e8.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Sizzling Red with Bluish Black Roof","h":"#000000","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/221_Sizzling-Red-with-Bluish-black-Roof_d82825_000000.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Magma Grey","h":"#6a6a65","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/228_Magma-Grey_6a6a65.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Pearl Arctic White with Bluish Black Roof","h":"#000000","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/223_Pearl-Arctic-White-with-Bluish-Black-roof_e8e8e8_000000.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Luster Blue with Bluish Black Roof","h":"#000000","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/222_Luster-Blue-with-Bluish-Black-roof_1f47c2_000000.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Bluish Black","h":"#000000","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/225_Bluish-Black_000000.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Sizzling Red","h":"#d82825","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/224_Sizzling-Red_d82825.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Splendid Silver","h":"#aeaeaf","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/229_Splendid-Silver_aeaeaf.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Luster Blue","h":"#1f47c2","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/226_Luster-Blue_1f47c2.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]},{"n":"Novel Orange","h":"#bf4315","u":"https://stimg.cardekho.com/images/car-images/930x620/Maruti/Swift/9226/1747045535143/227_Noval-Orange_bf4315.jpg","w":[[332.0,416.0,17.0,56.0,0.0],[185,388,13,48,0]]}]},{"id":"thar","brand":"mahindra","name":"Thar","type":"Off-roader","face":"right","lift":1,"colours":[{"n":"Galaxy Grey","h":"#4d515b","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/GalaxyGrey_4d515b.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Stealth Black","h":"#1e1e1e","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/StealthBlack_1e1e1e.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Jeans Blue","h":"#3a4f64","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/JeansBlue_3a4f64.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Battleship Grey","h":"#535f6f","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/BattleshipGrey_535f6f.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Deep Forest","h":"#3b3f38","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/DeepForest_3b3f38.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Tango Red","h":"#761924","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/TangoRed_761924.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]},{"n":"Artemis Silver","h":"#39404a","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Thar/13948/1790089687804/ArtemisSilver_39404a.jpg","w":[[442,417,52,62,0],[153,388,27,54,0]]}]},{"id":"scorpio-n","brand":"mahindra","name":"Scorpio N","type":"SUV","face":"right","lift":1,"colours":[{"n":"Everest White","h":"#d1d3d5","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Scorpio-N/13746/1785924987591/EVEREST-WHITE_d1d3d5.jpg","w":[[467,420,45,54,0],[167.5,393.0,26.0,58.0,8.0]]},{"n":"Galaxy Grey","h":"#3a3b3f","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Scorpio-N/13746/1785924987591/GALAXY-GREY_3a3b3f.jpg","w":[[467,420,45,54,0],[167.5,393.0,26.0,58.0,8.0]]},{"n":"Oceanic","h":"#0b283e","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Scorpio-N/13746/1785924987591/OCEANIC_0b283e.jpg","w":[[467,420,45,54,0],[167.5,393.0,26.0,58.0,8.0]]},{"n":"Stealth Black","h":"#080808","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Scorpio-N/13746/1785924987591/STEALTH-BLACK_080808.jpg","w":[[467,420,45,54,0],[167.5,393.0,26.0,58.0,8.0]]},{"n":"Deep Forest","h":"#2e322a","u":"https://stimg.cardekho.com/images/car-images/930x620/Mahindra/Scorpio-N/13746/1785924987591/DEEP-FOREST_2e322a.jpg","w":[[467,420,45,54,0],[167.5,393.0,26.0,58.0,8.0]]}]},{"id":"nexon","brand":"tata","name":"Nexon","type":"Compact SUV","face":"left","lift":1,"colours":[{"n":"Pure Grey Dual Tone","h":"#626262","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Pure-grey-dual-tone_626262.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Ocean Blue Dual Tone","h":"#203b42","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Ocean-Blue-dual-ton_203b42.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Pristine White Single Tone","h":"#e2e2e2","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Pristine-white-single-tone_e2e2e2.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Daytona Grey with Dual Tone","h":"#494a4c","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Daytona-Grey-with-Dual-Tone_494a4c.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Dark Edition Atlas Black","h":"#090909","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Dark-edition--Atlas-black_090909.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Grassland Beige Dual Tone","h":"#8d8b74","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Grassland-Beige-Dual-Tone_8d8b74.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Grassland Beige","h":"#93917c","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Grassland-Beige_93917c.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Pristine White Dual Tone","h":"#e4e4e4","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Pristine-White-Dual-Tone_e4e4e4.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Ocean Blue","h":"#80a2ab","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Ocean-Blue_80a2ab.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Pure Grey","h":"#adadad","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Pure-Grey_adadad.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Royal Blue","h":"#354070","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1778230360652/Royal-Blue_354070.jpg","w":[[532.8,429.2,27.0,58.0,-1.5],[781,378,15,53,0]]},{"n":"Royal Blue Dual Tone","h":"#0a112f","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Royal-blue-dual-tone_0a112f.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]},{"n":"Daytona Grey Single Tone","h":"#141414","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Nexon/11130/1777283399308/Daytona-Grey-single-tone_141414.jpg","w":[[532.0,431.0,28.0,55.0,2.0],[785.0,380.5,20.0,57.5,0.0]]}]},{"id":"punch","brand":"tata","name":"Punch","type":"Micro SUV","face":"right","lift":1,"colours":[{"n":"Coorg Clouds","h":"#939498","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Coorg-Clouds_939498.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]},{"n":"Pristine White","h":"#fbfbfb","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Pristine-White_fbfbfb.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]},{"n":"Bengal Rouge","h":"#e7001d","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Bengal-Rouge_e7001d.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]},{"n":"Cyantific","h":"#0088cd","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Cyantafic_0088cd.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]},{"n":"Caramel","h":"#e08300","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Caramel_e08300.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]},{"n":"Daytona Grey","h":"#38393e","u":"https://stimg.cardekho.com/images/car-images/930x620/Tata/Punch/13243/1779787181821/Daytona-Grey_38393e.jpg","w":[[354,431,27,62,0],[136,393,18,51,0]]}]},{"id":"seltos","brand":"kia","name":"Seltos","type":"Mid-size SUV","face":"left","lift":1,"colours":[{"n":"Glacier White Pearl","h":"#b5b5b5","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Glacier-White-Pearl_b5b5b5.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Ivory Silver Gloss","h":"#6c6c6c","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Ivory-Silver-Gloss_6c6c6c.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Pewter Olive","h":"#252d23","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Pewter-Olive_252d23.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Frost Blue","h":"#445b6b","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Frost-Blue_445b6b.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Morning Haze","h":"#8f9b99","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Morning-Haze_8f9b99.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Aurora Black Pearl","h":"#0a0a0a","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Aurora-Black-Pearl_0a0a0a.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Magma Red","h":"#420107","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Magma-Red_420107.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Imperial Blue","h":"#212749","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Imperial-Blue_212749.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]},{"n":"Gravity Grey","h":"#2c3033","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Seltos-2026/12770/1765365263735/Gravity-Grey_2c3033.jpg","w":[[497,418,41,62,0],[814,379,22,48,0]]}]},{"id":"sonet","brand":"kia","name":"Sonet","type":"Compact SUV","face":"left","lift":1,"colours":[{"n":"Glacier White Pearl","h":"#bbbbbb","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/9783/1705386619542/223_Glacier-White-Pearl_bbbbbb.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Magma Red and Aurora Black Pearl","h":"#830806","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/11411/1781265086181/Magma-Red-and-Aurora-Black-Pearl_830806.jpg","w":[[461.5,411.0,38.0,50.0,-6.0],[747,388,24,48,0]]},{"n":"Clear White","h":"#fafafc","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/11397/1781264555750/Clear-White-fafafc.jpg","w":[[461.5,411.0,38.0,50.0,-6.0],[747,388,24,48,0]]},{"n":"Pewter Olive","h":"#33382d","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/9783/1705386619542/222_Pewter-Olive_33382d.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Aurora Black Pearl","h":"#161616","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/11395/Kia-Sonet-X-line-Diesel-AT/1719909877316/226_Aurora-Black-Pearl_161616.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Matte Graphite","h":"#575b5c","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/11397/1781264555750/Matte-Graphite_575b5c.jpg","w":[[461.5,411.0,38.0,50.0,-6.0],[747,388,24,48,0]]},{"n":"Imperial Blue","h":"#192648","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/9783/1705386619542/229_Imperial-Blue_192648.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Intense Red","h":"#891718","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/9783/1705386619542/225_Intense-Red_891718.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Glacier White Pearl Aurora Black Pearl","h":"#b4b4b4","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/11396/1708068195256/228_Glacier-White-Pearl-Aurora-Black-Pearl_b4b4b4.jpg","w":[[461.0,412.0,38.0,51.0,-5.0],[747,388,24,48,0]]},{"n":"Gravity Grey","h":"#242729","u":"https://stimg.cardekho.com/images/car-images/930x620/Kia/Sonet/9783/1738729674336/Gravity-Grey_242729.jpg","w":[[463.0,412.0,32.0,51.0,-4.0],[747,388,24,48,0]]}]}];
+const BRANDS=[{id:"maruti",n:"Maruti Suzuki",l:"l-maruti.svg"},{id:"hyundai",n:"Hyundai",l:"l-hyundai.webp"},{id:"tata",n:"Tata",l:"l-tata.webp"},{id:"mahindra",n:"Mahindra",l:"l-mahindra.svg"},{id:"kia",n:"Kia",l:"l-kia.webp"}];
+const WHEELS=Array.from({length:25},(_,i)=>{const k=String(i+1).padStart(2,"0");return{id:"w"+k,make:i<11?"OZ Racing":"MSW",n:(i<11?"OZ Racing":"MSW")+" style "+k,thumb:"a"+k+".webp",face:"f"+k+".webp"}});
+const PH=930,PV=620,K=1395/930;
 
-function go(s){if(s==="model"&&!S.brand||s==="colour"&&!S.model||s==="alloy"&&!S.colour)return;S.step=s;S.zoom=s==="alloy"&&S.alloy?"wheel":"full";render()}
-function render(){
- document.querySelectorAll(".tabs button").forEach(b=>{const k=b.dataset.go;b.classList.toggle("on",k===S.step);b.disabled=k==="model"&&!S.brand||k==="colour"&&!S.model||k==="alloy"&&!S.colour});
- const T={brand:["Choose your brand","Which car do you drive?"],model:[S.brand?S.brand.name:"","Choose your model."],colour:[S.model?S.model.name:"","Choose your colour."],alloy:["Alloy wheels","25 styles. Tap one to fit it on your car."]}[S.step];
- $("title").textContent=T[0];$("sub").textContent=T[1];
- opts();stage();foot();
+const S={brand:"hyundai",model:"creta",colour:0,wheel:null,step:"brand",zoom:"full",filter:"all"};
+const $=i=>document.getElementById(i);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const model=()=>DATA.find(m=>m.id===S.model);
+const brand=id=>BRANDS.find(b=>b.id===id);
+const wheel=()=>WHEELS.find(w=>w.id===S.wheel);
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* image cache */
+const cache={};
+function img(src){return cache[src]||(cache[src]=new Promise((ok,no)=>{const i=new Image();i.decoding="async";i.onload=()=>ok(i);i.onerror=()=>no(src);i.src=src}))}
+
+/* drawing */
+const layers=[$("c0"),$("c1")];let front=0;
+function drawWheel(ctx,e,face,mirror,rot){
+  const [cx,cy,rx,ry,a]=e.map((v,i)=>i<4?v*K:v);
+  ctx.save();ctx.translate(cx,cy);ctx.rotate(a*Math.PI/180);ctx.scale(rx,ry);
+  // tyre bead: covers any trace of the factory rim at the edge
+  let g=ctx.createRadialGradient(0,0,.95,0,0,1.11);
+  g.addColorStop(0,"rgba(19,19,20,1)");g.addColorStop(.55,"rgba(19,19,20,.92)");g.addColorStop(1,"rgba(19,19,20,0)");
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,1.11,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.arc(0,0,1,0,Math.PI*2);ctx.clip();
+  // inside of the wheel: brake and hub in shadow
+  g=ctx.createRadialGradient(-.08,.05,0,0,0,1);g.addColorStop(0,"#2b2b2e");g.addColorStop(.6,"#141415");g.addColorStop(1,"#0a0a0b");
+  ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);
+  ctx.save();if(mirror)ctx.scale(-1,1);ctx.rotate(rot);const s=256/250;ctx.drawImage(face,-s,-s,2*s,2*s);ctx.restore();
+  // studio light: arch shadow on top, falloff to the lip
+  g=ctx.createLinearGradient(0,-1,0,1);g.addColorStop(0,"rgba(0,0,0,.32)");g.addColorStop(.38,"rgba(0,0,0,.06)");g.addColorStop(.75,"rgba(0,0,0,0)");g.addColorStop(1,"rgba(0,0,0,.14)");
+  ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);
+  g=ctx.createRadialGradient(0,0,.82,0,0,1);g.addColorStop(0,"rgba(0,0,0,0)");g.addColorStop(1,"rgba(0,0,0,.38)");
+  ctx.fillStyle=g;ctx.fillRect(-1,-1,2,2);
+  ctx.restore();
 }
-function opts(){
- let h="";
- if(S.step==="brand")h=`<div class="grid">${D.brands.map((b,i)=>`<button class="opt ${S.brand&&S.brand.id===b.id?"on":""}" style="--i:${i}" data-brand="${b.id}"><span class="lt"><img src="${b.logo}" alt=""></span><b>${esc(b.name)}<small>${D.models.filter(m=>m.brand===b.id).length} model${D.models.filter(m=>m.brand===b.id).length>1?"s":""}</small></b></button>`).join("")}</div>`;
- if(S.step==="model")h=`<div class="grid">${D.models.filter(m=>m.brand===S.brand.id).map((m,i)=>`<button class="opt ${S.model&&S.model.id===m.id?"on":""}" style="--i:${i}" data-model="${m.id}"><span class="ph"><img src="${car(m)}" alt=""></span><b>${esc(m.name)}<small>${m.type}</small></b></button>`).join("")}</div>`;
- if(S.step==="colour")h=`<div class="sws">${S.model.colours.map(c=>`<button class="sw ${S.colour===c?"on":""}" style="--c:${hex(c)}" data-colour="${esc(c)}" aria-label="${esc(c)}" title="${esc(c)}"></button>`).join("")}</div><p class="cn">${S.colour?esc(S.colour):"Tap a colour to repaint the car."}</p><button class="btn nx" data-go="alloy" ${S.colour?"":"disabled"}>Next: alloy wheels</button>`;
- if(S.step==="alloy")h=`<div class="grid a">${D.alloys.map((a,i)=>`<button class="opt ${S.alloy===a.id?"on":""}" style="--i:${i%9}" data-alloy="${a.id}" aria-label="${a.name}"><span class="wl"><img src="${a.img}" alt=""></span><b style="font-size:13px">${a.name}</b></button>`).join("")}</div>`;
- $("opts").innerHTML=h;
+async function paint(cv,st,rot=0){
+  const m=DATA.find(x=>x.id===st.model),c=m.colours[st.colour];
+  const car=await img(c.u);const w=st.wheel?WHEELS.find(x=>x.id===st.wheel):null;const face=w?await img(w.face):null;
+  const ctx=cv.getContext("2d");ctx.clearRect(0,0,cv.width,cv.height);
+  ctx.filter=m.lift!==1?`brightness(${m.lift})`:"none";ctx.drawImage(car,0,0,cv.width,cv.height);ctx.filter="none";
+  // fade the photo's edges to white so it melts into the studio (multiply blend)
+  const W=cv.width,H=cv.height,fade=(x0,y0,x1,y1,rx,ry,rw,rh)=>{const g=ctx.createLinearGradient(x0,y0,x1,y1);g.addColorStop(0,"#fff");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;ctx.fillRect(rx,ry,rw,rh)};
+  fade(0,0,W*.07,0,0,0,W*.07,H);fade(W,0,W*.93,0,W*.93,0,W*.07,H);fade(0,0,0,H*.06,0,0,W,H*.06);fade(0,H,0,H*.86,0,H*.86,W,H*.14);
+  if(face){ctx.imageSmoothingQuality="high";for(const e of c.w)drawWheel(ctx,e,face,m.face==="right",rot)}
 }
-function stage(){
- const st=$("stage"),m=S.model;
- if(!m){
-  st.innerHTML=`<div class="pile">${D.models.slice(0,6).map(x=>`<img src="${car(x)}" alt="">`).join("")}</div><div class="empty"><div><h2>Your car.<br>Your wheels.</h2><p>Pick a brand to start.</p></div></div>`;return;
- }
- const a=S.alloy?by(D.alloys,S.alloy):null;
- const wheels=a?m.w.map(([x,y,r])=>`<span class="wh" style="left:${x}%;top:${y}%;width:${r*2}%;aspect-ratio:1"><img src="${a.img}" alt=""></span>`).join(""):"";
- st.innerHTML=`<div class="shot" id="shot"><canvas class="car" id="carcv" role="img" aria-label="${esc(m.name)}"></canvas>${wheels}</div>
- <div class="cap"><h2>${esc(S.brand.name)} ${esc(m.name)}</h2><p>${S.colour?esc(S.colour):"Choose a colour"}${a?" · "+a.name:""}</p></div>
- <div class="ctl">${a?`<button class="ar" data-prev aria-label="Previous wheel">‹</button><button class="ar" data-next aria-label="Next wheel">›</button><div class="seg"><button data-zoom="wheel" class="${S.zoom==="wheel"?"on":""}">Wheel</button><button data-zoom="full" class="${S.zoom==="full"?"on":""}">Full car</button></div>`:""}</div>`;
- fit();
- prepCar(m).then(()=>{const cv=$("carcv");if(cv&&S.model===m)paintCar(cv,m,S.colour)});
+let spinId=0;
+async function show(kind){
+  const st={...S};const next=layers[1-front],cur=layers[front];
+  try{await paint(next,st)}catch(e){return}
+  if(st.model!==S.model||st.colour!==S.colour||st.wheel!==S.wheel)return; // stale
+  if(kind==="wheel"&&!reduce){
+    // spin the new wheel into place on the visible layer
+    const id=++spinId,t0=performance.now(),D=950;
+    const tick=async now=>{if(id!==spinId)return;const p=Math.min(1,(now-t0)/D),ez=1-Math.pow(1-p,3);await paint(cur,st,(1-ez)*-2.6);if(p<1)requestAnimationFrame(tick)};
+    requestAnimationFrame(tick);return;
+  }
+  next.classList.remove("on","to-left");next.classList.toggle("from-right",kind==="model"&&!reduce);
+  void next.offsetWidth;
+  next.classList.remove("from-right");next.classList.add("on");
+  cur.classList.remove("on");if(kind==="model"&&!reduce)cur.classList.add("to-left");
+  front=1-front;
 }
+
+/* layout of the car on the stage */
 function fit(){
- const st=$("stage"),sh=$("shot"),m=S.model;if(!sh||!m)return;
- const sw=st.clientWidth,sH=st.clientHeight;
- const availH=sH-(innerWidth>900?130:0);const w=Math.min(sw,availH*m.ar),h=w/m.ar;
- sh.style.width=w+"px";sh.style.height=h+"px";
- const x0=(sw-w)/2,y0=Math.max(0,(availH-h)/2);
- let s=1,tx=x0,ty=y0;
- if(S.zoom==="wheel"&&S.alloy){
-  const [px,py,r]=m.w[0];const cx=px/100*w,cy=py/100*h;
-  s=Math.min(sw,sH)*.34/(r/100*w);s=Math.min(s,3.2);
-  tx=sw/2-s*cx;ty=sH/2-s*cy;
-  // keep the wheel on the right-hand side so the caption stays clear
-  tx+=sw*.08;
- }
- sh.style.left="0";sh.style.top="0";
- sh.style.transform=`translate(${tx}px,${ty}px) scale(${s})`;
+  const st=$("stage"),fr=$("frame"),W=st.clientWidth,H=st.clientHeight,small=W<700;
+  const head=small?150:170,foot=small?78:90;
+  const w=Math.min(W*1.0,(H-head-foot)*PH/PV*1.08),h=w*PV/PH;
+  fr.style.width=w+"px";fr.style.height=h+"px";
+  let x=(W-w)/2,y=head+(H-head-foot-h)/2+(small?6:18),s=1;
+  if(S.zoom==="wheel"){
+    const m=model(),e=m.colours[S.colour].w[0];const cx=e[0]/PH*w,cy=e[1]/PV*h;
+    s=Math.min(2.6,Math.max(1.8,(H*.62)/(e[3]*2/PV*h)));
+    x=W*.56-cx*s;y=H*.55-cy*s;
+  }
+  fr.style.transform=`translate(${x}px,${y}px) scale(${s})`;st.classList.toggle("zoomed",S.zoom==="wheel");
 }
-function foot(){
- const ok=S.model&&S.colour&&S.alloy,b=$("book");
- b.setAttribute("aria-disabled",ok?"false":"true");
- const p=[];if(S.model)p.push(S.model.name);if(S.colour)p.push(S.colour);
- $("sum").innerHTML=S.model?`<b>${esc(S.brand.name)} ${esc(S.model.name)}</b>${esc(S.colour||"No colour yet")}${S.alloy?" · "+by(D.alloys,S.alloy).name:""}`:"Pick a brand to start.";
+
+/* panel */
+function steps(){
+  document.querySelectorAll(".steps button").forEach(b=>{b.toggleAttribute("aria-current",false);if(b.dataset.go===S.step)b.setAttribute("aria-current","step")});
 }
-function cycle(d){const i=D.alloys.findIndex(a=>a.id===S.alloy);S.alloy=D.alloys[(i+d+D.alloys.length)%D.alloys.length].id;opts();stage();foot();
- const el=document.querySelector(".opt.on");if(el)el.scrollIntoView({block:"nearest",behavior:"smooth"})}
+function panel(){
+  const m=model(),b=brand(m.brand);let t="",sub="",h="";
+  if(S.step==="brand"){t="Choose your brand";sub="Every car is shown in its real paint colours.";
+    h=`<div class="grid">${BRANDS.map((x,i)=>{const n=DATA.filter(d=>d.brand===x.id).length;return`<button class="opt" style="--i:${i}" data-brand="${x.id}" aria-pressed="${x.id===S.brand}"><span class="lg"><img src="${x.l}" alt=""></span><b>${x.n}<small>${n} models</small></b></button>`}).join("")}</div>`}
+  if(S.step==="model"){t=brand(S.brand).n;sub="Choose your model.";
+    h=`<div class="grid">${DATA.filter(d=>d.brand===S.brand).map((d,i)=>`<button class="opt" style="--i:${i}" data-model="${d.id}" aria-pressed="${d.id===S.model}"><span class="ph"><img src="${d.colours[0].u}" alt="" loading="lazy"></span><b>${d.name}<small>${d.type} · ${d.colours.length} colours</small></b></button>`).join("")}</div>`}
+  if(S.step==="colour"){const c=m.colours[S.colour];t=m.name+" colours";sub=m.colours.length+" factory colours, shown on the real car.";
+    h=`<div class="sw-grid">${m.colours.map((c,i)=>`<button class="sw" style="--c:${c.h};--i:${i}" data-colour="${i}" aria-pressed="${i===S.colour}" aria-label="${esc(c.n)}" title="${esc(c.n)}"></button>`).join("")}</div><p class="cname">${esc(c.n)}<small>${b.n} ${m.name}</small></p><div class="next"><button class="btn" data-go="wheels">Choose your wheels</button></div>`}
+  if(S.step==="wheels"){t="Alloy wheels";sub="Tap a wheel to fit it. Use Wheel view for a close look.";
+    const list=WHEELS.filter(w=>S.filter==="all"||w.make===S.filter);
+    h=`<div class="chips">${[["all","All 25"],["OZ Racing","OZ Racing"],["MSW","MSW"]].map(([k,l])=>`<button class="chip" data-filter="${k}" aria-pressed="${S.filter===k}">${l}</button>`).join("")}</div>
+    <div class="grid w"><button class="opt" style="--i:0" data-wheel="" aria-pressed="${!S.wheel}"><span class="wl factory">Factory wheels</span><b>Original<small>${m.name}</small></b></button>${list.map((w,i)=>`<button class="opt" style="--i:${(i+1)%12}" data-wheel="${w.id}" aria-pressed="${w.id===S.wheel}"><span class="wl"><img src="${w.thumb}" alt="" loading="lazy"></span><b>${w.make==="MSW"?"MSW":"OZ"} ${w.id.slice(1)}<small>${w.make}</small></b></button>`).join("")}</div>`}
+  $("ptitle").textContent=t;$("psub").textContent=sub;$("pbody").innerHTML=h;
+}
+function head(){
+  const m=model(),b=brand(m.brand),c=m.colours[S.colour],w=wheel();
+  $("make").innerHTML=`<img src="${b.l}" alt="">${b.n}`;$("title").textContent=m.name;
+  $("spec").innerHTML=`<b>${esc(c.n)}</b> · ${w?esc(w.n):"Factory wheels"}`;
+  $("quick").innerHTML=m.colours.map((c,i)=>`<button class="qd" style="--c:${c.h}" data-colour="${i}" aria-pressed="${i===S.colour}" aria-label="${esc(c.n)}" title="${esc(c.n)}"></button>`).join("");
+  $("view").style.visibility=w?"visible":"hidden";
+  $("hint").classList.toggle("show",S.step==="wheels"&&!w);
+  document.querySelectorAll("[data-zoom]").forEach(x=>x.setAttribute("aria-pressed",x.dataset.zoom===S.zoom));
+  $("sCar").textContent=b.n+" "+m.name;$("sCol").textContent=c.n;$("sWheel").textContent=w?w.n:"Factory";
+  const msg=`Hi Car Decor, I'd like to fit ${w?w.n:"new alloy wheels"} on my ${b.n} ${m.name} (${c.n}). When can I come in?`;
+  $("book").href="https://wa.me/919845859785?text="+encodeURIComponent(msg);
+}
+function preload(){model().colours.forEach(c=>img(c.u).catch(()=>{}))}
+function update(kind){steps();panel();head();fit();if(kind)show(kind)}
+
 document.addEventListener("click",e=>{
- const t=e.target.closest("button");if(!t||t.disabled)return;const d=t.dataset;
- if(d.go)return go(d.go);
- if(d.brand){S.brand=by(D.brands,d.brand);S.model=S.colour=null;S.step="model";S.zoom="full";return render()}
- if(d.model){S.model=by(D.models,d.model);S.colour=null;S.step="colour";S.zoom="full";return render()}
- if(d.colour!==undefined){S.colour=d.colour;S.zoom="full";return render()}
- if(d.alloy){const first=!S.alloy;S.alloy=d.alloy;S.zoom="wheel";opts();stage();foot();return}
- if(d.zoom){S.zoom=d.zoom;stage();return}
- if("prev"in d)return cycle(-1);if("next"in d)return cycle(1);
+  const t=e.target.closest("button");if(!t)return;const d=t.dataset;
+  if(d.go){S.step=d.go;return update()}
+  if(d.brand){const was=S.brand;S.brand=d.brand;S.step="model";if(was!==d.brand){const m=DATA.find(x=>x.brand===d.brand);S.model=m.id;S.colour=0;S.zoom="full";preload();return update("model")}return update()}
+  if(d.model){const ch=d.model!==S.model;S.model=d.model;S.colour=0;S.step="colour";S.zoom="full";preload();return update(ch?"model":null)}
+  if(d.colour!==undefined){S.colour=+d.colour;return update("colour")}
+  if(d.filter){S.filter=d.filter;return panel()}
+  if(d.wheel!==undefined){const first=!S.wheel;S.wheel=d.wheel||null;if(!S.wheel)S.zoom="full";return update(S.wheel?"wheel":"colour")}
+  if(d.zoom){S.zoom=d.zoom;head();return fit()}
+  if(d.step){const i=WHEELS.findIndex(w=>w.id===S.wheel);S.wheel=WHEELS[(i+ +d.step+WHEELS.length)%WHEELS.length].id;update("wheel");const el=document.querySelector(`[data-wheel="${S.wheel}"]`);if(el)el.scrollIntoView({block:"nearest",behavior:"smooth"});return}
 });
 addEventListener("resize",fit);
-render();
+preload();update();
+paint(layers[0],{...S}).then(()=>layers[0].classList.add("on"));
+WHEELS.forEach(w=>img(w.face).catch(()=>{}));
 </script>
 </body>
 </html>
